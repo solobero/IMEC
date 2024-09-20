@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminAuthMiddleware;
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name("home.index");
 
 Route::get('/product', 'App\Http\Controllers\ProductController@index')->name("product.index");
 Route::post('/product/save', 'App\Http\Controllers\ProductController@save')->name("product.save");

@@ -19,7 +19,7 @@ class Product extends Model
      * $this->attributes['warranty'] - int - contains the product warranty period
      */
 
-    public static function validate($request)
+    public static function validate($request): array
     {
         $request->validate([
             "name" => "required|max:255",
@@ -30,7 +30,7 @@ class Product extends Model
         ]);
     }
 
-    public static function sumPricesByQuantities($products, $productsInSession)
+    public static function sumPricesByQuantities($products, $productsInSession): int
     {
         $total = 0;
         foreach ($products as $product) {
@@ -44,11 +44,6 @@ class Product extends Model
     public function getId(): int
     {
         return $this->attributes['id'];
-    }
-
-    public function setId($id): void
-    {
-        $this->attributes['id'] = $id;
     }
 
     public function getName(): string

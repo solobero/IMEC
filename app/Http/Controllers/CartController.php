@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class CartController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $total = 0;
         $productsInCart = [];
@@ -23,7 +25,8 @@ class CartController extends Controller
         $viewData["products"] = $productsInCart;
         return view('cart.index')->with("viewData", $viewData);
     }
-    public function add(Request $request, $id)
+
+    public function add(Request $request, $id): RedirectResponse
 
     {
         $products = $request->session()->get("products");
@@ -31,7 +34,8 @@ class CartController extends Controller
         $request->session()->put('products', $products);
         return redirect()->route('cart.index');
     }
-    public function delete(Request $request)
+
+    public function delete(Request $request): RedirectResponse
     {
         $request->session()->forget('products');
         return back();
