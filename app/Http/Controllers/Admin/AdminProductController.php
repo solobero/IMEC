@@ -14,7 +14,6 @@ class AdminProductController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData["title"] = "Admin Page - Products - Online Store";
         $viewData["products"] = Product::all();
 
         return view('admin.product.index')->with("viewData", $viewData);
@@ -44,7 +43,6 @@ class AdminProductController extends Controller
     public function edit($id): View
     {
         $viewData = [];
-        $viewData["title"] = "Admin Page - Edit Product - Online Store";
         $viewData["product"] = Product::findOrFail($id);
         return view('admin.product.edit')->with("viewData", $viewData);
     }
