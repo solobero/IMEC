@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Service extends Model
 {
-    use HasFactory;
 
     /**
-     * PRODUCT ATTRIBUTES
-     * $this->attributes['id'] - int - contains the product primary key (id)
-     * $this->attributes['name'] - string - contains the product name
-     * $this->attributes['description'] - string - contains the product description
-     * $this->attributes['image'] - string - contains the product image
-     * $this->attributes['price'] - int - contains the product price
-     * $this->attributes['warranty'] - int - contains the product warranty period
+     * service ATTRIBUTES
+     * $this->attributes['id'] - int - contains the service primary key (id)
+     * $this->attributes['name'] - string - contains the service name
+     * $this->attributes['description'] - string - contains the service description
+     * $this->attributes['category'] - string - contains the service description
+     * $this->attributes['image'] - string - contains the service image
+     * $this->attributes['price'] - int - contains the service price
      */
 
     public static function validate($request)
@@ -24,22 +23,13 @@ class Product extends Model
         $request->validate([
             "name" => "required|max:255",
             "description" => "required",
+            "category" => "required",
             'image' => 'image',
             "price" => "required|numeric|gt:0",
-            "warranty" => "required|numeric|gt:0",
         ]);
     }
 
-    public static function sumPricesByQuantities($products, $productsInSession): int
-    {
-        $total = 0;
-        foreach ($products as $product) {
-            $total = $total + ($product->getPrice() * $productsInSession[$product->getId()]);
-        }
-        return $total;
-    }
-
-    protected $fillable = ['name', 'description', 'image', 'price', 'warranty'];
+    protected $fillable = ['name', 'description', 'category', 'image', 'price'];
 
     public function getId(): int
     {
@@ -66,6 +56,16 @@ class Product extends Model
         $this->attributes['description'] = $description;
     }
 
+    public function getCategory(): string
+    {
+        return $this->attributes['category'];
+    }
+
+    public function setCategory($category): void
+    {
+        $this->attributes['category'] = $category;
+    }
+
     public function getImage(): string
     {
         return $this->attributes['image'];
@@ -84,15 +84,5 @@ class Product extends Model
     public function setPrice($price): void
     {
         $this->attributes['price'] = $price;
-    }
-
-    public function getWarranty(): int
-    {
-        return $this->attributes['warranty'];
-    }
-
-    public function setWarranty($warranty): void
-    {
-        $this->attributes['warranty'] = $warranty;
     }
 }
