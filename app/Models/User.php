@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
@@ -23,6 +24,7 @@ class User extends Authenticatable
      * $this->attributes['balance'] - int - contains the user balance 
      * $this->attributes['created_at'] - timestamp - contains the user creation date 
      * $this->attributes['updated_at'] - timestamp - contains the user update date
+     * $this->orders - Order[] - contains the associated orders
     */
     
     protected $fillable = [
@@ -157,5 +159,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function ordersProduct() : OrderProduct
+    { 
+        return $this->hasMany(OrderProduct::class); 
+    } 
+    
+    public function getOrdersProduct() : OrderProduct
+    { 
+        return $this->product_orders; 
+    } 
+    
+    public function setOrdersProduct($product_orders) : void
+    { 
+        $this->product_orders = $product_orders; 
     }
 }
