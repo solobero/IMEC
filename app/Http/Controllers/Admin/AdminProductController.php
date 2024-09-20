@@ -6,10 +6,12 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class AdminProductController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $viewData = [];
         $viewData["title"] = "Admin Page - Products - Online Store";
@@ -18,7 +20,7 @@ class AdminProductController extends Controller
         return view('admin.product.index')->with("viewData", $viewData);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         Product::validate($request);
         $newProduct = new Product();
@@ -39,7 +41,7 @@ class AdminProductController extends Controller
         return back();
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $viewData = [];
         $viewData["title"] = "Admin Page - Edit Product - Online Store";
@@ -47,7 +49,7 @@ class AdminProductController extends Controller
         return view('admin.product.edit')->with("viewData", $viewData);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         Product::validate($request);
         $product = Product::findOrFail($id);
@@ -70,8 +72,7 @@ class AdminProductController extends Controller
         return redirect()->route('admin.product.index');
     }
 
-
-    public function delete($id)
+    public function delete($id): RedirectResponse
     {
         Product::destroy($id);
         return back();

@@ -2,7 +2,12 @@
 @section('title','Home Page - IMEC')
 @section('content')
 <div class="text-center">
-    <h5>¡Welcome to "IMEC STORE"!</h5><br>
-    <a href="{{route('product.index')}}" class="btn" style="background-color: #310e47; color: #fff;">Show Products</a>
+    <div class="card text-bg-dark">
+        <img src="{{ asset('img/pc.jpg') }}" class="card-img w-100" alt="..." style="height: 530px; object-fit: cover;">
+        <div class="card-img-overlay">
+            <h5 class="card-title">¡Welcome!</h5>
+            <p class="card-text">"Your reliable PC and component store with specialized technical support."</p>
+        </div>
+    </div>
 </div>
 @endsection
