@@ -6,11 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Order;
+use App\Models\OrderProduct;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use  Notifiable;
 
     /**
      * USER ATTRIBUTES 
@@ -24,9 +26,10 @@ class User extends Authenticatable
      * $this->attributes['balance'] - int - contains the user balance 
      * $this->attributes['created_at'] - timestamp - contains the user creation date 
      * $this->attributes['updated_at'] - timestamp - contains the user update date
-     * $this->orders - Order[] - contains the associated orders
+     * $this->ordersProduct - OrderProduct[] - contains the associated orders
+     * $this->ordersService - OrderService[] - contains the associated orders
     */
-    
+
     protected $fillable = [
         'name',
         'email',
@@ -161,7 +164,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function ordersProduct() : OrderProduct
+    public function ordersProduct(): HasMany
     { 
         return $this->hasMany(OrderProduct::class); 
     } 
@@ -174,5 +177,25 @@ class User extends Authenticatable
     public function setOrdersProduct($product_orders) : void
     { 
         $this->product_orders = $product_orders; 
+    }
+
+    public function ordersService(): HasMany
+    { 
+        return $this->hasMany(OrderService::class); 
+    } 
+    
+    public function getOrdersService() : OrderService
+    { 
+        return $this->service_orders; 
+    }
+
+    public function setOrdersService($service_orders) : void
+    { 
+        $this->service_orders = $service_orders; 
+    }
+    // Getter for id
+    public function getId(): int
+    {
+        return $this->attributes['id'];
     }
 }

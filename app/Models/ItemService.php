@@ -7,7 +7,7 @@ use App\Models\OrderProduct;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-class ItemProduct extends Model
+class ItemService extends Model
 {
 
 
@@ -16,22 +16,22 @@ class ItemProduct extends Model
     * $this->attributes['id'] - int - contains the item primary key (id) 
     * $this->attributes['quantity'] - int - contains the item quantity 
     * $this->attributes['price'] - int - contains the item price 
-    * $this->attributes['order_product_id'] - int - contains the referenced order product id 
-    * $this->attributes['product_id'] - int - contains the referenced product id 
+    * $this->attributes['order_service_id'] - int - contains the referenced order service id 
+    * $this->attributes['service_id'] - int - contains the referenced service id 
     * $this->attributes['created_at'] - timestamp - contains the item creation date 
     * $this->attributes['updated_at'] - timestamp - contains the item update date 
-    * $this->order - OrderProduct - contains the associated OrderProduct 
-    * $this->product - Product - contains the associated Product 
+    * $this->order - OrderService - contains the associated OrderService 
+    * $this->service - Service - contains the associated Service 
     */ 
 
-    protected $table = 'product-items';
+    protected $table = 'service-items';
 
     public static function validate($request)
     {
         $request->validate([
             "price" => "required|numeric|gt:0",
             "quantity" => "required|numeric|gt:0",
-            "product_id" => "required|exists:products,id",
+            "service_id" => "required|exists:services,id",
             "order_id" => "required|exists:orders,id",
 
         ]);
@@ -60,22 +60,22 @@ class ItemProduct extends Model
     {
         $this->attributes['price'] = $price;
     }
-    public function getOrderProductId(): int
+    public function getOrderServiceId(): int
 {
         return $this->attributes['order_id'];
     }
 
-    public function setOrderProductId(int $orderProductId): void
+    public function setOrderServiceId(int $orderServiceId): void
     {
-        $this->attributes['order_id'] = $orderProductId;
+        $this->attributes['order_id'] = $orderServiceId;
     }
-    public function getProductId(): int
+    public function getServiceId(): int
     {
-        return $this->attributes['product_id'];
+        return $this->attributes['service_id'];
     }
-    public function setProductId(int $productId): void
+    public function setServiceId(int $serviceId): void
     {
-        $this->attributes['product_id'] = $productId;
+        $this->attributes['service_id'] = $serviceId;
     }
     public function getCreatedAt()
     {
@@ -93,29 +93,29 @@ class ItemProduct extends Model
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
-    public function orderProduct() : BelongsTo
+    public function orderService() : BelongsTo
     {
-        return $this->belongsTo(OrderProduct::class);
+        return $this->belongsTo(OrderService::class);
     }
-    public function getOrderProduct() : OrderProduct
+    public function getOrderService() : OrderService
     {
-        return $this->product_orders;
+        return $this->service_orders;
 
     }
-    public function setOrderProduct(OrderProduct $orderProduct): void
+    public function setOrderService(OrderService $orderService): void
     {
-        $this->orderProduct = $orderProduct;
+        $this->orderService = $orderService;
     }
-    public function product() : BelongsTo
+    public function service() : BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Service::class);
     }
-    public function getProduct() : Product
+    public function getService() : Service
     {
-        return $this->product;
+        return $this->service;
     }
-    public function setProduct(Product $product): void
+    public function setService(Service $service): void
     {
-        $this->product = $product;
+        $this->service = $service;
     }
 }

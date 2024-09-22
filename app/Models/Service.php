@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
@@ -31,6 +33,16 @@ class Service extends Model
 
     protected $fillable = ['name', 'description', 'category', 'image', 'price'];
 
+    public static function sumPricesByQuantities($services, $servicesInSession): int
+    {
+        $total = 0;
+        foreach ($services as $service) {
+            $total = $total + ($service->getPrice() * $servicesInSession[$service->getId()]);
+        }
+        return $total;
+    }
+
+
     public function getId(): int
     {
         return $this->attributes['id'];
@@ -56,16 +68,6 @@ class Service extends Model
         $this->attributes['description'] = $description;
     }
 
-    public function getCategory(): string
-    {
-        return $this->attributes['category'];
-    }
-
-    public function setCategory($category): void
-    {
-        $this->attributes['category'] = $category;
-    }
-
     public function getImage(): string
     {
         return $this->attributes['image'];
@@ -84,5 +86,28 @@ class Service extends Model
     public function setPrice($price): void
     {
         $this->attributes['price'] = $price;
+    }
+
+    public function getCategory(): string
+    {
+        return $this->attributes['category'];
+    }
+
+    public function setCategory($category): void
+    {
+        $this->attributes['category'] = $category;
+    }
+
+    public function itemsService(): HasMany
+    {
+        return $this->hasMany(ItemService::class);
+    }
+    public function getItemsService()
+    {
+        return $this->service_items;
+    }
+    public function setItemsService($service_items)
+    {
+        $this->service_items = $service_items;
     }
 }

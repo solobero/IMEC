@@ -22,7 +22,7 @@
                 <h5>Warranty (Months): </h5>
                 <p class="card-text">{{ $viewData["product"]["warranty"] }}</p>
                 <p class="card-text">
-                <form method="POST" action="{{ route('cart.add', ['id'=> $viewData['product']->getId()]) }}">
+                <form method="POST" action="{{ route('cart.product.add', ['id'=> $viewData['product']->getId()]) }}">
                     <div class="row"> @csrf <div class="col-auto">
                             <div class="input-group col-auto">
                                 <div class="input-group-text">Quantity</div> <input type="number" min="1" max="10" class="form-control quantity-input" name="quantity" value="1">

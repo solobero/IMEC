@@ -5,10 +5,10 @@ use App\Models\ItemProduct;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Carbon\Carbon;
-class OrderProduct extends Model { 
+class OrderService extends Model { 
     
     /** 
-     * ORDERPRODUCT ATTRIBUTES
+     * ORDERSERVICE ATTRIBUTES
      * $this->attributes['id'] - int - contains the order primary key (id) 
      * $this->attributes['total'] - string - contains the order name 
      * $this->attributes['user_id'] - int - contains the referenced user id 
@@ -19,7 +19,7 @@ class OrderProduct extends Model {
      */ 
     
     
-    protected $table = 'product-orders'; 
+    protected $table = 'service-orders'; 
     
     public static function validate($request) 
     { 
@@ -88,18 +88,18 @@ class OrderProduct extends Model {
         $this->user = $user;
     } 
 
-    public function itemsProduct(): HasMany
+    public function itemsService(): HasMany
     {
-        return $this->hasMany(ItemProduct::class, 'order_id'); 
+        return $this->hasMany(ItemService::class, 'order_id'); 
     }
 
-    public function getItemsProduct()
+    public function getItemsService()
     {
-        return $this->itemsProduct()->get(); // Devuelve la colección de items  
+        return $this->itemsService()->get(); // Devuelve la colección de items  
     }
 
-    public function setItemsProduct($product_items) : void 
+    public function setItemsService($service_items) : void 
     { 
-        $this->product_items = $product_items; 
+        $this->service_items = $service_items; 
     } 
 }

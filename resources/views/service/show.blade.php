@@ -22,7 +22,7 @@
                 <h5>Category: </h5>
                 <p class="card-text">{{ $viewData["service"]["category"] }}</p>
                 <p class="card-text">
-                <form method="POST" action="{{ route('cart.add', ['id'=> $viewData['service']->getId()]) }}">
+                <form method="POST" action="{{ route('cart.service.add', ['id'=> $viewData['service']->getId()]) }}">
                     <div class="row"> @csrf <div class="col-auto">
                             <div class="input-group col-auto">
                                 <div class="input-group-text">Quantity</div> <input type="number" min="1" max="10" class="form-control quantity-input" name="quantity" value="1">

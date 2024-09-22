@@ -57,6 +57,8 @@
                         Register
                     </a>
                     @else
+                    <a class="nav-link active" href="{{ route('myaccount.order_product') }}">My Orders Product</a>
+                    <a class="nav-link active" href="{{ route('myaccount.order_service') }}">My Orders Service</a>
                     <form id="logout" action="{{ route('logout') }}" method="POST">
                         <a role="button" class="nav-link active" onclick="document.getElementById('logout').submit();">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">

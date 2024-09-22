@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -17,6 +19,8 @@ class Product extends Model
      * $this->attributes['image'] - string - contains the product image
      * $this->attributes['price'] - int - contains the product price
      * $this->attributes['warranty'] - int - contains the product warranty period
+     * $this->itemsProduct - ItemProduct[] - contains the associated items
+     * $this->itemsService - ItemService [] - contains the associated items
      */
 
     public static function validate($request)
@@ -94,5 +98,19 @@ class Product extends Model
     public function setWarranty($warranty): void
     {
         $this->attributes['warranty'] = $warranty;
+    }
+
+    public function itemsProduct(): HasMany
+    {
+        return $this->hasMany(ItemProduct::class);
+    }
+    public function getItemsProduct()
+    {
+        return $this->product_items;
+    }
+
+    public function setItemsProduct($product_items): void
+    {
+        $this->product_items = $product_items;
     }
 }
