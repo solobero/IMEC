@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('subtitle', $viewData["subtitle"])
+@section('subtitle', __('messages.servicesTitle'))
 @section('content')
 <div class="row">
     @foreach ($viewData["services"] as $service)

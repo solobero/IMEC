@@ -7,8 +7,6 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name("home.index");
 
-
-
 Route::get('/product', 'App\Http\Controllers\ProductController@index')->name("product.index");
 Route::get('/product/{id}', 'App\Http\Controllers\ProductController@show')->name("product.show");
 
@@ -25,8 +23,8 @@ Route::post('/cartService/add/{id}', 'App\Http\Controllers\CartServiceController
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/cartProduct/purchase', 'App\Http\Controllers\CartProductController@purchase')->name("cart.product.purchase");
-    Route::get('/cartService/purchase', 'App\Http\Controllers\CartServiceController@purchase')->name("cart.service.purchase");
+    Route::get('/cartProduct/purchase', 'App\Http\Controllers\CartProductController@purchaseProduct')->name("cart.product.purchase");
+    Route::get('/cartService/purchase', 'App\Http\Controllers\CartServiceController@purchaseService')->name("cart.service.purchase");
     Route::get('/my-account/orderProduct', 'App\Http\Controllers\MyAccountController@orderProduct')->name("myaccount.order_product");
     Route::get('/my-account/orderService', 'App\Http\Controllers\MyAccountController@orderService')->name("myaccount.order_service");
 });
