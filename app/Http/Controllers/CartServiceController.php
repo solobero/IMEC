@@ -45,7 +45,7 @@ class CartServiceController extends Controller
         return back();
     }
 
-    public function purchase(Request $request)
+    public function purchaseService(Request $request)
     {
         $servicesInSession = $request->session()->get("services");
         if ($servicesInSession) {

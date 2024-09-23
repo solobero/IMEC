@@ -1,19 +1,18 @@
 @extends('layouts.app') 
-@section('title', $viewData["title"]) 
-@section('subtitle', $viewData["subtitle"]) 
+@section('subtitle', __('messages.ordersTitle')) 
 @section('content') 
 @forelse ($viewData["orderProduct"] as $orderProduct) 
 <div class="card mb-4">
-    <div class="card-header"> Order #{{ $orderProduct->getId() }} </div>
-    <div class="card-body"> <b>Date:</b> {{ $orderProduct->getCreatedAt() }}<br /> <b>Total:</b> ${{ $orderProduct->getTotal() }}<br />
+    <div class="card-header"> {{__('messages.order') }}{{ $orderProduct->getId() }} </div>
+    <div class="card-body"> <b>{{__('messages.date') }}</b> {{ $orderProduct->getCreatedAt() }}<br /> <b>Total:</b> ${{ $orderProduct->getTotal() }}<br />
 
         <table class="table table-bordered table-striped text-center mt-3">
             <thead>
                 <tr>
-                    <th scope="col">Item ID</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
+                    <th scope="col">{{__('messages.id') }}</th>
+                    <th scope="col">{{__('messages.editName') }}</th>
+                    <th scope="col">{{__('messages.editPrice') }}</th>
+                    <th scope="col">{{__('messages.quantity') }}</th>
                 </tr>
             </thead>
             <tbody> 
@@ -26,12 +25,12 @@
                 </tr> @endforeach 
                 @else
                 <tr>
-                    <td colspan="4">No items found</td>
+                    <td colspan="4">{{__('messages.notAndOrder') }}</td>
                 </tr>
                 @endif
             </tbody>
         </table>
     </div>
-</div> @empty <div class="alert alert-danger" role="alert"> Seems to be that you have not purchased anything in our store =(. </div> 
+</div> @empty <div class="alert alert-danger" role="alert">{{__('messages.notAnOrder') }}</div> 
 @endforelse 
 @endsection

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('subtitle', $viewData["subtitle"])
+@section('subtitle', __('messages.servicesTitle'))
 @section('content')
 <div class="card mb-3">
     <div class="row g-0">
@@ -15,20 +15,20 @@
                 <h3 class="card-title">
                     {{ $viewData["service"]["name"] }}
                 </h3>
-                <h5>Description: </h5>
+                <h5>{{__('messages.editDescription') }} </h5>
                 <p class="card-text">{{ $viewData["service"]["description"] }}</p>
-                <h5>Price: </h5>
+                <h5>{{__('messages.editPrice') }}</h5>
                 <p class="card-text">{{ $viewData["service"]["price"] }}</p>
-                <h5>Category: </h5>
+                <h5>{{__('messages.editCategory') }} </h5>
                 <p class="card-text">{{ $viewData["service"]["category"] }}</p>
                 <p class="card-text">
                 <form method="POST" action="{{ route('cart.service.add', ['id'=> $viewData['service']->getId()]) }}">
                     <div class="row"> @csrf <div class="col-auto">
                             <div class="input-group col-auto">
-                                <div class="input-group-text">Quantity</div> <input type="number" min="1" max="10" class="form-control quantity-input" name="quantity" value="1">
+                                <div class="input-group-text">{{__('messages.quantity') }}</div> <input type="number" min="1" max="10" class="form-control quantity-input" name="quantity" value="1">
                             </div>
                         </div>
-                        <div class="col-auto"> <button class="btn bg-primary text-white" type="submit">Add to cart</button> </div>
+                        <div class="col-auto"> <button class="btn bg-primary text-white" type="submit">{{__('messages.cartAdd') }}</button> </div>
                     </div>
                 </form>
                 </p>

@@ -1,7 +1,7 @@
 @extends('layouts.admin') 
 @section('content') 
 <div class="card mb-4">
-    <div class="card-header"> Edit Product </div>
+    <div class="card-header"> {{__('messages.edit') }} </div>
     <div class="card-body"> 
         @if($errors->any()) 
         <ul class="alert alert-danger list-unstyled"> 
@@ -16,21 +16,21 @@
         @method('PUT') 
         <div class="row">
                 <div class="col">
-                    <div class="mb-3 row"> <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Name:</label>
+                    <div class="mb-3 row"> <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">{{__('messages.editName') }}</label>
                         <div class="col-lg-10 col-md-6 col-sm-12"> 
                             <input name="name" value="{{ $viewData['product']->getName() }}" type="text" class="form-control"> 
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="mb-3 row"> <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Price:</label>
+                    <div class="mb-3 row"> <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">{{__('messages.editPrice') }}</label>
                         <div class="col-lg-10 col-md-6 col-sm-12"> 
                             <input name="price" value="{{ $viewData['product']->getPrice() }}" type="number" class="form-control"> 
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="mb-3 row"> <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Warranty:</label>
+                    <div class="mb-3 row"> <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">{{__('messages.editWarranty') }}</label>
                         <div class="col-lg-10 col-md-6 col-sm-12"> 
                             <input name="warranty" value="{{ $viewData['product']->getWarranty() }}" type="number" class="form-control"> 
                         </div>
@@ -40,7 +40,7 @@
 
             <div class="row">
                 <div class="col">
-                    <div class="mb-3 row"> <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Image:</label>
+                    <div class="mb-3 row"> <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">{{__('messages.editImage') }}</label>
                         <div class="col-lg-10 col-md-6 col-sm-12"> 
                             <input class="form-control" type="file" name="image"> 
                         </div>
@@ -48,11 +48,11 @@
                 </div>
                 <div class="col"> &nbsp; </div>
             </div>
-            <div class="mb-3"> <label class="form-label">Description</label> 
+            <div class="mb-3"> <label class="form-label">{{__('messages.editDescription') }}</label> 
             <textarea class="form-control" name="description" 
                 rows="3">{{ $viewData['product']->getDescription() }}</textarea> 
             </div> 
-            <button type="submit" class="btn btn-primary">Edit</button>
+            <button type="submit" class="btn btn-primary">{{__('messages.edit') }}</button>
         </form>
     </div>
 </div> @endsection
