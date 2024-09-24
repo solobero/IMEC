@@ -48,14 +48,30 @@ class CartProductController extends Controller
     public function purchaseProduct(Request $request)
     {
         $productsInSession = $request->session()->get("products");
+
         if ($productsInSession) {
-            $userId = Auth::user()->getId();
+            $user = Auth::user(); // Obtiene al usuario autenticado
+            $userId = $user->getId();
             $orderProduct = new OrderProduct();
             $orderProduct->setUserId($userId);
             $orderProduct->setTotal(0);
             $orderProduct->save();
+
             $total = 0;
             $productsInCart = Product::findMany(array_keys($productsInSession));
+
+            // Calcular el total de los productos antes de procesar la orden
+            foreach ($productsInCart as $product) {
+                $quantity = $productsInSession[$product->getId()];
+                $total += ($product->getPrice() * $quantity);
+            }
+
+            // Verificar si el usuario tiene suficiente balance
+            if ($user->getBalance() < $total) {
+                return redirect()->route('cart.product.index')->with('error', 'Insufficient balance to complete the purchase.');
+            }
+
+            // Proceder con la compra si tiene balance suficiente
             foreach ($productsInCart as $product) {
                 $quantity = $productsInSession[$product->getId()];
                 $itemProduct = new ItemProduct();
@@ -64,22 +80,29 @@ class CartProductController extends Controller
                 $itemProduct->setProductId($product->getId());
                 $itemProduct->setOrderProductId($orderProduct->getId());
                 $itemProduct->save();
-                $total = $total + ($product->getPrice() * $quantity);
             }
+
+            // Actualizar el total de la orden y guardar
             $orderProduct->setTotal($total);
             $orderProduct->save();
-            $newBalance = Auth::user()->getBalance() - $total;
-            Auth::user()->setBalance($newBalance);
 
-            Auth::user()->save();
+            // Restar el total del balance del usuario
+            $newBalance = $user->getBalance() - $total;
+            $user->setBalance($newBalance);
+            $user->save();
+
+            // Vaciar el carrito de la sesión
             $request->session()->forget('products');
+
+            // Preparar los datos para la vista
             $viewData = [];
             $viewData["title"] = "Purchase - Online Store";
             $viewData["subtitle"] = "Purchase Status";
             $viewData["orderProduct"] = $orderProduct;
+
             return view('cart.product.purchase')->with("viewData", $viewData);
         } else {
             return redirect()->route('cart.product.index');
         }
-    } 
+    }
 }
