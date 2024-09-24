@@ -9,6 +9,7 @@
     <title>@yield('title',__('messages.name'))</title>
 </head>
 
+
 <body class="d-flex flex-column min-vh-100">
     <!--Header-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-2 custom-navbar">

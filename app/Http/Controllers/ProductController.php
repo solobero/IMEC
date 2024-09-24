@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use App\Models\Product;
+use App\Utils\Search;
 
 class ProductController extends Controller
 {
@@ -25,5 +26,15 @@ class ProductController extends Controller
         $viewData["subtitle"] =  $product["name"]." - Product information";
         $viewData["product"] = $product;
         return view('product.show')->with("viewData", $viewData);
+    }
+
+    public function search(Request $request): View
+    {
+        $viewData = [];
+        $keyword = $request->input('search'); 
+        $viewData["subtitle"] = "Product Search Results";
+        $viewData['products'] = Product::where('name', 'LIKE', '%' . $keyword . '%')->get();
+
+        return view('product.index')->with("viewData", $viewData);
     }
 }

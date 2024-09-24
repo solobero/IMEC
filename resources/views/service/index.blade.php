@@ -1,6 +1,18 @@
 @extends('layouts.app')
 @section('subtitle', __('messages.servicesTitle'))
 @section('content')
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <form action="{{ route('service.search') }}" method="GET" class="d-flex">
+            <input class="form-control me-2" type="search" name="search" placeholder="Search services..." aria-label="Search" required>
+            <button class="btn btn-outline-success" type="submit">
+                <i class="bi bi-search"></i> <b>Search</b>
+            </button>
+        </form>
+    </div>
+</div>
+
 <div class="row">
     @foreach ($viewData["services"] as $service)
     <div class="col-md-4 col-lg-3 mb-2">

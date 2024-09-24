@@ -7,14 +7,17 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name("home.index");
 
-Route::get('/product', 'App\Http\Controllers\ProductController@index')->name("product.index");
+Route::get('/product', 'App\Http\Controllers\ProductController@index')->name("product.index"); 
+Route::get('/product/search', 'App\Http\Controllers\ProductController@search')->name("product.search");
 Route::get('/product/{id}', 'App\Http\Controllers\ProductController@show')->name("product.show");
+
 
 Route::get('/cartProduct', 'App\Http\Controllers\CartProductController@index')->name("cart.product.index");
 Route::get('/cartProduct/delete', 'App\Http\Controllers\CartProductController@delete')->name("cart.product.delete");
 Route::post('/cartProduct/add/{id}', 'App\Http\Controllers\CartProductController@add')->name("cart.product.add");
 
 Route::get('/service', 'App\Http\Controllers\ServiceController@index')->name("service.index");
+Route::get('/service/search', 'App\Http\Controllers\ServiceController@search')->name("service.search");
 Route::get('/service/{id}', 'App\Http\Controllers\ServiceController@show')->name("service.show");
 
 Route::get('/cartService', 'App\Http\Controllers\CartServiceController@index')->name("cart.service.index");
