@@ -22,6 +22,7 @@
                 <li><a href="{{ route('admin.home.index') }}" class="nav-link text-white">{{__('messages.home') }}</a></li>
                 <li><a href="{{ route('admin.product.index') }}" class="nav-link text-white">{{__('messages.products') }}</a></li>
                 <li><a href="{{ route('admin.service.index') }}" class="nav-link text-white">{{__('messages.services') }}</a></li>
+                <li><a href="{{ route('admin.order.index') }}" class="nav-link text-white">{{__('messages.ordersByUser') }}</a></li>
                 <li><a href="{{ route('home.index') }}" class="mt-2 btn bg-primary text-white">{{__('messages.goBack') }}</a></li>
             </ul>
         </div>

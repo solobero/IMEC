@@ -1,105 +1,116 @@
-<?php namespace App\Models; 
-use Illuminate\Database\Eloquent\Model; 
-use App\Models\User; 
-use App\Models\ItemProduct;
+<?php
+
+namespace App\Models;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Carbon\Carbon;
-class OrderService extends Model { 
-    
-    /** 
+
+class OrderService extends Model
+{
+    /**
      * ORDERSERVICE ATTRIBUTES
-     * $this->attributes['id'] - int - contains the order primary key (id) 
-     * $this->attributes['total'] - string - contains the order name 
-     * $this->attributes['user_id'] - int - contains the referenced user id 
-     * $this->attributes['created_at'] - timestamp - contains the order creation date 
-     * $this->attributes['updated_at'] - timestamp - contains the order update date 
+     * $this->attributes['id'] - int - contains the order primary key (id)
+     * $this->attributes['total'] - string - contains the order name
+     * $this->attributes['user_id'] - int - contains the referenced user id
+     * $this->attributes['created_at'] - timestamp - contains the order creation date
+     * $this->attributes['updated_at'] - timestamp - contains the order update date
      * $this->user - User - contains the associated User
-     * $this->items - Item[] - contains the associated items 
-     */ 
-    
-    
-    protected $table = 'service-orders'; 
-    
-    public static function validate($request) 
-    { 
+     * $this->items - Item[] - contains the associated items
+     */
+    protected $table = 'service-orders';
+
+    public static function validate($request)
+    {
         $request->validate([
-            "total" => "required|numeric", 
-            "user_id" => "required|exists:users,id", 
-        ]); 
-    } 
+            'total' => 'required|numeric',
+            'user_id' => 'required|exists:users,id',
+        ]);
+    }
 
-    public function getId() : int
-    { 
-        return $this->attributes['id']; 
-    } 
+    public function getId(): int
+    {
+        return $this->attributes['id'];
+    }
 
-    public function getTotal() : int
-    { 
-        return $this->attributes['total']; 
-    } 
-    
-    public function setTotal(int $total) : void
-    { 
-        $this->attributes['total'] = $total; 
-    } 
+    public function getTotal(): int
+    {
+        return $this->attributes['total'];
+    }
 
-    public function getUserId() : int
-    { 
-        return $this->attributes['user_id']; 
-    } 
+    public function setTotal(int $total): void
+    {
+        $this->attributes['total'] = $total;
+    }
 
-    public function setUserId(int $userId) : void
-    { 
-        $this->attributes['user_id'] = $userId; 
-    } 
-    
-    public function getCreatedAt() : string
-    { 
-        return $this->attributes['created_at']; 
-    } 
-    public function setCreatedAt($createdAt) : void
-    { 
-        $this->attributes['created_at'] = $createdAt; 
-    } 
+    public function getUserId(): int
+    {
+        return $this->attributes['user_id'];
+    }
 
-    public function getUpdatedAt() : Carbon
-    { 
-        return $this->attributes['updated_at']; 
-    } 
-    
-    public function setUpdatedAt( $updatedAt) : void
-    { 
-        $this->attributes['updated_at'] = $updatedAt; 
-    } 
-    
-    public function user() : BelongsTo
-    { 
-        return $this->belongsTo(User::class); 
-    } 
+    public function setUserId(int $userId): void
+    {
+        $this->attributes['user_id'] = $userId;
+    }
 
-    public function getUser() : User
-    { 
-        return $this->user; 
-    } 
+    public function getCreatedAt(): string
+    {
+        return $this->attributes['created_at'];
+    }
 
-    public function setUser($user) : void
-    { 
+    public function setCreatedAt($createdAt): void
+    {
+        $this->attributes['created_at'] = $createdAt;
+    }
+
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->attributes['updated_at'];
+    }
+
+    public function setUpdatedAt($updatedAt): void
+    {
+        $this->attributes['updated_at'] = $updatedAt;
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser($user): void
+    {
         $this->user = $user;
-    } 
+    }
 
     public function itemsService(): HasMany
     {
-        return $this->hasMany(ItemService::class, 'order_id'); 
+        return $this->hasMany(ItemService::class, 'order_id');
     }
 
     public function getItemsService()
     {
-        return $this->itemsService()->get(); // Devuelve la colección de items  
+        return $this->itemsService()->get(); // Devuelve la colección de items
     }
 
-    public function setItemsService($service_items) : void 
-    { 
-        $this->service_items = $service_items; 
-    } 
+    public function setItemsService($service_items): void
+    {
+        $this->service_items = $service_items;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->attributes['status'];
+    }
+
+    public function setStatus($status): void
+    {
+        $this->attributes['status'] = $status;
+    }
 }

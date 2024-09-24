@@ -17,14 +17,18 @@
     @foreach ($viewData["services"] as $service)
     <div class="col-md-4 col-lg-3 mb-2">
         <div class="card">
-            @if($service["image"])
-            <img src="{{ asset('/storage/' . $service->getImage()) }}" class="card-img-top img-card" alt="{{ $service['name'] }}">
+            @if($service->getImage())
+            <img src="{{ asset('/storage/' . $service->getImage()) }}" class="card-img-top img-card" alt="{{ $service->getName() }}">
             @else
-            <img src="{{ asset('storage/imagenes/juYAVeFlN1huOL14yjPhTB0DQtL6yb5uWH7PzoiP') }}" class="img-fluid rounded-start" alt="default">
+            <img src="{{ asset('storage/default.jpeg') }}" class="img-fluid rounded-start" alt="default">
             @endif
             <div class="card-body text-center">
                 <a href="{{ route('service.show', ['id'=> $service['id']]) }}"
-                    class="btn bg-primary text-white">{{ $service["name"] }}</a>
+                    class="btn bg-primary text-white">{{ $service->getName() }}
+                </a>
+                <p class="mt-2">
+                    <strong>{{__('messages.editPrice') }} </strong>{{ $service->getPrice() }}$
+                </p>
             </div>
         </div>
     </div>

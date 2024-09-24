@@ -13,9 +13,9 @@ class ServiceController extends Controller
     public function index(): View
     {
         $viewData = [];
-        $viewData["subtitle"] =  "List Of Services";
-        $viewData["services"] = Service::all();
-        return view('service.index')->with("viewData", $viewData);
+        $viewData['services'] = Service::all();
+
+        return view('service.index')->with('viewData', $viewData);
     }
 
     public function search(Request $request): View
@@ -31,8 +31,8 @@ class ServiceController extends Controller
     {
         $viewData = [];
         $service = Service::findOrFail($id);
-        $viewData["subtitle"] =  $service["name"]." - Service Information";
-        $viewData["service"] = $service;
-        return view('service.show')->with("viewData", $viewData);
+        $viewData['service'] = $service;
+
+        return view('service.show')->with('viewData', $viewData);
     }
 }

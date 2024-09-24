@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
-
     /**
      * service ATTRIBUTES
      * $this->attributes['id'] - int - contains the service primary key (id)
@@ -19,15 +16,14 @@ class Service extends Model
      * $this->attributes['image'] - string - contains the service image
      * $this->attributes['price'] - int - contains the service price
      */
-
     public static function validate($request)
     {
         $request->validate([
-            "name" => "required|max:255",
-            "description" => "required",
-            "category" => "required",
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'category' => 'required',
             'image' => 'image',
-            "price" => "required|numeric|gt:0",
+            'price' => 'required|numeric|gt:0',
         ]);
     }
 
@@ -39,9 +35,9 @@ class Service extends Model
         foreach ($services as $service) {
             $total = $total + ($service->getPrice() * $servicesInSession[$service->getId()]);
         }
+
         return $total;
     }
-
 
     public function getId(): int
     {
@@ -102,10 +98,12 @@ class Service extends Model
     {
         return $this->hasMany(ItemService::class);
     }
+
     public function getItemsService()
     {
         return $this->service_items;
     }
+
     public function setItemsService($service_items)
     {
         $this->service_items = $service_items;
