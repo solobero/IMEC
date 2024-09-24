@@ -3,10 +3,15 @@
 @section('content') <div class="card">
     <div class="card-header"> {{__('messages.cartProductSubtitle') }} </div>
     <div class="card-body">
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <table class="table table-bordered table-striped text-center">
             <thead>
                 <tr>
-                <th scope="col">{{__('messages.id') }}</th>
+                    <th scope="col">{{__('messages.id') }}</th>
                     <th scope="col">{{__('messages.editName') }}</th>
                     <th scope="col">{{__('messages.editPrice') }}</th>
                     <th scope="col">{{__('messages.quantity') }}</th>
@@ -23,7 +28,7 @@
         <div class="row">
             <div class="text-end"> <a class="btn btn-outline-secondary mb-2"><b>{{__('messages.total') }}</b> ${{ $viewData["total"] }}</a>
                 @if (count($viewData["products"]) > 0)
-                <a href="{{ route('cart.product.purchase') }}"  class="btn bg-primary text-white mb-2">{{__('messages.purchase') }}</a>
+                <a href="{{ route('cart.product.purchase') }}" class="btn bg-primary text-white mb-2">{{__('messages.purchase') }}</a>
                 <a href="{{ route('cart.product.delete') }}">
                     <button class="btn btn-danger mb-2">
                         {{__('messages.emptyCart') }}
