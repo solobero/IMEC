@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
@@ -22,15 +21,14 @@ class Product extends Model
      * $this->itemsProduct - ItemProduct[] - contains the associated items
      * $this->itemsService - ItemService [] - contains the associated items
      */
-
     public static function validate($request)
     {
         $request->validate([
-            "name" => "required|max:255",
-            "description" => "required",
+            'name' => 'required|max:255',
+            'description' => 'required',
             'image' => 'image',
-            "price" => "required|numeric|gt:0",
-            "warranty" => "required|numeric|gt:0",
+            'price' => 'required|numeric|gt:0',
+            'warranty' => 'required|numeric|gt:0',
         ]);
     }
 
@@ -40,6 +38,7 @@ class Product extends Model
         foreach ($products as $product) {
             $total = $total + ($product->getPrice() * $productsInSession[$product->getId()]);
         }
+
         return $total;
     }
 
@@ -104,6 +103,7 @@ class Product extends Model
     {
         return $this->hasMany(ItemProduct::class);
     }
+
     public function getItemsProduct()
     {
         return $this->product_items;

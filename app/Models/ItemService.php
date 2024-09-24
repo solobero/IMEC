@@ -3,65 +3,62 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\OrderProduct;
-use App\Models\Product;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class ItemService extends Model
 {
-
-
-    /** 
-    * ITEM ATTRIBUTES 
-    * $this->attributes['id'] - int - contains the item primary key (id) 
-    * $this->attributes['quantity'] - int - contains the item quantity 
-    * $this->attributes['price'] - int - contains the item price 
-    * $this->attributes['order_service_id'] - int - contains the referenced order service id 
-    * $this->attributes['service_id'] - int - contains the referenced service id 
-    * $this->attributes['created_at'] - timestamp - contains the item creation date 
-    * $this->attributes['updated_at'] - timestamp - contains the item update date 
-    * $this->order - OrderService - contains the associated OrderService 
-    * $this->service - Service - contains the associated Service 
-    */ 
-
+    /**
+     * ITEM ATTRIBUTES
+     * $this->attributes['id'] - int - contains the item primary key (id)
+     * $this->attributes['quantity'] - int - contains the item quantity
+     * $this->attributes['price'] - int - contains the item price
+     * $this->attributes['order_service_id'] - int - contains the referenced order service id
+     * $this->attributes['service_id'] - int - contains the referenced service id
+     * $this->attributes['created_at'] - timestamp - contains the item creation date
+     * $this->attributes['updated_at'] - timestamp - contains the item update date
+     * $this->order - OrderService - contains the associated OrderService
+     * $this->service - Service - contains the associated Service
+     */
     protected $table = 'service-items';
 
     public static function validate($request)
     {
         $request->validate([
-            "price" => "required|numeric|gt:0",
-            "quantity" => "required|numeric|gt:0",
-            "service_id" => "required|exists:services,id",
-            "order_id" => "required|exists:orders,id",
+            'price' => 'required|numeric|gt:0',
+            'quantity' => 'required|numeric|gt:0',
+            'service_id' => 'required|exists:services,id',
+            'order_id' => 'required|exists:orders,id',
 
         ]);
     }
+
     public function getId(): int
     {
         return $this->attributes['id'];
     }
-    public function setId(int $id): void
-    {
-        $this->attributes['id'] = $id;
-    }
+
     public function getQuantity(): int
     {
         return $this->attributes['quantity'];
     }
+
     public function setQuantity(int $quantity): void
     {
         $this->attributes['quantity'] = $quantity;
     }
+
     public function getPrice(): int
     {
         return $this->attributes['price'];
     }
+
     public function setPrice(int $price): void
     {
         $this->attributes['price'] = $price;
     }
+
     public function getOrderServiceId(): int
-{
+    {
         return $this->attributes['order_id'];
     }
 
@@ -69,51 +66,63 @@ class ItemService extends Model
     {
         $this->attributes['order_id'] = $orderServiceId;
     }
+
     public function getServiceId(): int
     {
         return $this->attributes['service_id'];
     }
+
     public function setServiceId(int $serviceId): void
     {
         $this->attributes['service_id'] = $serviceId;
     }
+
     public function getCreatedAt()
     {
         return $this->attributes['created_at'];
     }
+
     public function setCreatedAt($createdAt): void
     {
         $this->attributes['created_at'] = $createdAt;
     }
+
     public function getUpdatedAt()
     {
         return $this->attributes['updated_at'];
     }
+
     public function setUpdatedAt($updatedAt): void
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
-    public function orderService() : BelongsTo
+
+    public function orderService(): BelongsTo
     {
         return $this->belongsTo(OrderService::class);
     }
-    public function getOrderService() : OrderService
+
+    public function getOrderService(): OrderService
     {
         return $this->service_orders;
 
     }
+
     public function setOrderService(OrderService $orderService): void
     {
         $this->orderService = $orderService;
     }
-    public function service() : BelongsTo
+
+    public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
     }
-    public function getService() : Service
+
+    public function getService(): Service
     {
         return $this->service;
     }
+
     public function setService(Service $service): void
     {
         $this->service = $service;

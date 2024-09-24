@@ -3,33 +3,29 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\OrderProduct;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
 
 class User extends Authenticatable
 {
-    use  Notifiable;
+    use Notifiable;
 
     /**
-     * USER ATTRIBUTES 
+     * USER ATTRIBUTES
      * $this->attributes['id'] - int - contains the user primary key (id)
-     * $this->attributes['name'] - string - contains the user name 
-     * $this->attributes['email'] - string - contains the user email 
-     * $this->attributes['email_verified_at'] - timestamp - contains the user email verification date 
-     * $this->attributes['password'] - string - contains the user password 
-     * $this->attributes['remember_token'] - string - contains the user password 
-     * $this->attributes['role'] - string - contains the user role (client or admin) 
-     * $this->attributes['balance'] - int - contains the user balance 
-     * $this->attributes['created_at'] - timestamp - contains the user creation date 
+     * $this->attributes['name'] - string - contains the user name
+     * $this->attributes['email'] - string - contains the user email
+     * $this->attributes['email_verified_at'] - timestamp - contains the user email verification date
+     * $this->attributes['password'] - string - contains the user password
+     * $this->attributes['remember_token'] - string - contains the user password
+     * $this->attributes['role'] - string - contains the user role (client or admin)
+     * $this->attributes['balance'] - int - contains the user balance
+     * $this->attributes['created_at'] - timestamp - contains the user creation date
      * $this->attributes['updated_at'] - timestamp - contains the user update date
      * $this->ordersProduct - OrderProduct[] - contains the associated orders
      * $this->ordersService - OrderService[] - contains the associated orders
-    */
-
+     */
     protected $fillable = [
         'name',
         'email',
@@ -60,7 +56,7 @@ class User extends Authenticatable
     }
 
     // Getter and Setter for email_verified_at
-    /** 
+    /**
     public function getEmailVerifiedAt(): ?string
     {
         return $this->attributes['email_verified_at'];
@@ -70,7 +66,7 @@ class User extends Authenticatable
     {
         $this->attributes['email_verified_at'] = $emailVerifiedAt;
     }
-    */
+     */
 
     // Getter and Setter for password
     public function getPassword(): string
@@ -84,7 +80,7 @@ class User extends Authenticatable
     }
 
     // Getter and Setter for remember_token
-    /** 
+    /**
     public function getRememberToken(): ?string
     {
         return $this->attributes['remember_token'];
@@ -94,7 +90,7 @@ class User extends Authenticatable
     {
         $this->attributes['remember_token'] = $rememberToken;
     }
-    */
+     */
 
     // Accessor for role
     public function getRoleAttribute(): string
@@ -165,34 +161,35 @@ class User extends Authenticatable
     }
 
     public function ordersProduct(): HasMany
-    { 
-        return $this->hasMany(OrderProduct::class); 
-    } 
-    
-    public function getOrdersProduct() : OrderProduct
-    { 
-        return $this->product_orders; 
-    } 
-    
-    public function setOrdersProduct($product_orders) : void
-    { 
-        $this->product_orders = $product_orders; 
+    {
+        return $this->hasMany(OrderProduct::class);
+    }
+
+    public function getOrdersProduct(): OrderProduct
+    {
+        return $this->product_orders;
+    }
+
+    public function setOrdersProduct($product_orders): void
+    {
+        $this->product_orders = $product_orders;
     }
 
     public function ordersService(): HasMany
-    { 
-        return $this->hasMany(OrderService::class); 
-    } 
-    
-    public function getOrdersService() : OrderService
-    { 
-        return $this->service_orders; 
+    {
+        return $this->hasMany(OrderService::class);
     }
 
-    public function setOrdersService($service_orders) : void
-    { 
-        $this->service_orders = $service_orders; 
+    public function getOrdersService(): OrderService
+    {
+        return $this->service_orders;
     }
+
+    public function setOrdersService($service_orders): void
+    {
+        $this->service_orders = $service_orders;
+    }
+
     // Getter for id
     public function getId(): int
     {
