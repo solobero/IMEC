@@ -71,6 +71,10 @@ return [
     'complete' => 'Complete',
     'search' => 'Search',
     'bestSelling' => 'Best Selling',
-    'bestSellingProducts' => 'List of Best-Selling Products'
-    
+    'bestSellingProducts' => 'List of Best-Selling Products',
+    'productsTitle' => 'Products',
+    'sortBy' => 'Sort By',
+    'alphabetical' => 'Alphabetical',
+    'priceLowToHigh' => 'Price: Low to High',
+
 ];

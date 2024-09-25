@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
 use App\Models\Product;
-use App\Utils\Search;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $viewData = [];
-        $viewData['products'] = Product::all();
+        $query = Product::query();
+
+        if ($request->has('search')) {
+            $keyword = $request->input('search');
+            $query->where('name', 'LIKE', '%'.$keyword.'%');
+        }
+
+        if ($request->has('sort') && $request->input('sort') === 'alphabetical') {
+            $query->orderBy('name', 'asc');
+        }
+
+        if ($request->has('sort') && $request->input('sort') === 'price') {
+            $query->orderBy('price', 'asc');
+        }
+
+        $viewData['products'] = $query->get();
 
         return view('product.index')->with('viewData', $viewData);
     }
@@ -30,18 +43,26 @@ class ProductController extends Controller
     public function search(Request $request): View
     {
         $viewData = [];
-        $keyword = $request->input('search'); 
-        $viewData["subtitle"] = "Product Search Results";
-        $viewData['products'] = Product::where('name', 'LIKE', '%' . $keyword . '%')->get();
+        $keyword = $request->input('search');
+        $query = Product::where('name', 'LIKE', '%'.$keyword.'%');
 
-        return view('product.index')->with("viewData", $viewData);
+        if ($request->has('sort') && $request->input('sort') === 'alphabetical') {
+            $query->orderBy('name', 'asc');
+        }
+
+        if ($request->has('sort') && $request->input('sort') === 'price') {
+            $query->orderBy('price', 'asc');
+        }
+
+        $viewData['products'] = $query->get();
+
+        return view('product.index')->with('viewData', $viewData);
     }
 
     public function bestSellers(): View
     {
         $viewData = [];
-        $viewData['products'] = Product::inRandomOrder()->take(2)->get(); 
-        $viewData['subtitle'] = "Best Selling Products";
+        $viewData['products'] = Product::inRandomOrder()->take(2)->get();
 
         return view('product.best_sellers')->with('viewData', $viewData);
     }
