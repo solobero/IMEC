@@ -106,7 +106,7 @@ class OrderProduct extends Model
 
     public function getItemsProduct()
     {
-        return $this->itemsProduct()->get(); // Devuelve la colección de items
+        return $this->itemsProduct()->get(); 
     }
 
     public function setItemsProduct($product_items): void

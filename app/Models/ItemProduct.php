@@ -105,7 +105,6 @@ class ItemProduct extends Model
     public function getOrderProduct(): OrderProduct
     {
         return $this->product_orders;
-
     }
 
     public function setOrderProduct(OrderProduct $orderProduct): void

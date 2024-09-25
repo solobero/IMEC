@@ -5,7 +5,6 @@
 <div class="card mb-4">
     <div class="card-header"> {{__('messages.order') }}{{ $orderProduct->getId() }} </div>
     <div class="card-body"> <b>{{__('messages.date') }}</b> {{ $orderProduct->getCreatedAt() }}<br /> <b>{{__('messages.total') }}</b> {{ $orderProduct->getTotal() }}<br />
-
         <table class="table table-bordered table-striped text-center mt-3">
             <thead>
                 <tr>

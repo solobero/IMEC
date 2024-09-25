@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,13 +8,11 @@
     <link href="{{ asset('/css/admin.css') }}" rel="stylesheet" />
     <title>@yield('title', __('messages.name'))</title>
 </head>
-
 <body>
-    <div class="row g-0 min-vh-100"> 
-        <!-- sidebar -->
-        <div class="p-3 col fixed text-white bg-dark"> 
-            <a href="{{ route('admin.home.index') }}" class="text-white text-decoration-none"> 
-                <span class="fs-4">{{__('messages.adminPanel') }}</span> 
+    <div class="row g-0 min-vh-100">
+        <div class="p-3 col fixed text-white bg-dark">
+            <a href="{{ route('admin.home.index') }}" class="text-white text-decoration-none">
+                <span class="fs-4">{{__('messages.adminPanel') }}</span>
             </a>
             <hr />
             <ul class="nav flex-column">
@@ -26,19 +23,13 @@
                 <li><a href="{{ route('home.index') }}" class="mt-2 btn bg-primary text-white">{{__('messages.goBack') }}</a></li>
             </ul>
         </div>
-        <!-- sidebar -->
         <div class="col content-grey">
             <div class="g-0 m-5"> @yield('content') </div>
         </div>
     </div>
-
-    <!-- footer -->
     <div class="copyright py-4 text-center text-white mt-auto">
         <div class="container"><small>{{__('messages.copyright') }}</small></div>
     </div>
-    <!-- footer -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
-
 </html>
