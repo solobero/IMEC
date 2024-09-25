@@ -89,6 +89,16 @@ class OrderProduct extends Model
         $this->user = $user;
     }
 
+    public function getProductId(): int
+    {
+        return $this->attributes['product_id'];
+    }
+
+    public function setProductId(int $productId): void
+    {
+        $this->attributes['product_id'] = $productId;
+    }
+
     public function itemsProduct(): HasMany
     {
         return $this->hasMany(ItemProduct::class, 'order_id');

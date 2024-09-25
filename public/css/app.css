@@ -32,3 +32,13 @@
     margin-right: 5px;
     vertical-align: middle;
 }
+
+.best-sellers-link {
+    display: inline-block;
+    padding: 5px 20px;
+    background-color: #b88dd3; 
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.8em;
+}

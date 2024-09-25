@@ -1,24 +1,6 @@
 @extends('layouts.app')
-@section('subtitle', __('messages.productsTitle'))
+@section('subtitle', __('messages.bestSellingProducts'))
 @section('content')
-
-
-<div class="row mb-4">
-    <div class="col-md-12">
-        <form action="{{ route('product.search') }}" method="GET" class="d-flex">
-            <input class="form-control me-2" type="search" name="search" placeholder="Search for products..." aria-label="Search" required>
-            <button class="btn btn-outline-success" type="submit">
-                <i class="bi bi-search"></i> <b>{{__('messages.search') }}</b>
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- Enlace de Best Sellers -->
-<div class="text-center mb-4">
-    <b>Check out for IMEC's best-selling products...</b>
-    <a href="{{ route('product.best_sellers') }}" class="best-sellers-link"><b>{{__('messages.bestSelling') }}</b></a>
-</div>
 
 
 <div class="row">

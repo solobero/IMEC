@@ -8,6 +8,7 @@ Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index')
 
 Route::get('/product', 'App\Http\Controllers\ProductController@index')->name("product.index"); 
 Route::get('/product/search', 'App\Http\Controllers\ProductController@search')->name("product.search");
+Route::get('/product/best-sellers', 'App\Http\Controllers\ProductController@bestSellers')->name("product.best_sellers");
 Route::get('/product/{id}', 'App\Http\Controllers\ProductController@show')->name("product.show");
 
 Route::get('/cartProduct', 'App\Http\Controllers\CartProductController@index')->name("cart.product.index");

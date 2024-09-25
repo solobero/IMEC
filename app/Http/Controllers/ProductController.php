@@ -36,4 +36,13 @@ class ProductController extends Controller
 
         return view('product.index')->with("viewData", $viewData);
     }
+
+    public function bestSellers(): View
+    {
+        $viewData = [];
+        $viewData['products'] = Product::inRandomOrder()->take(2)->get(); 
+        $viewData['subtitle'] = "Best Selling Products";
+
+        return view('product.best_sellers')->with('viewData', $viewData);
+    }
 }

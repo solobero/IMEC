@@ -69,5 +69,8 @@ return [
     'action' => 'Action',
     'shipped' => 'Shipped',
     'complete' => 'Complete',
-
+    'search' => 'Search',
+    'bestSelling' => 'Best Selling',
+    'bestSellingProducts' => 'List of Best-Selling Products'
+    
 ];
