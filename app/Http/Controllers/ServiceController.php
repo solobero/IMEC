@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
 use App\Models\Service;
-use App\Utils\Search;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ServiceController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $viewData = [];
-        $viewData['services'] = Service::all();
+        $query = Service::query();
+
+        if ($request->has('search')) {
+            $keyword = $request->input('search');
+            $query->where('name', 'LIKE', '%'.$keyword.'%');
+        }
+
+        if ($request->has('sort') && $request->input('sort') === 'alphabetical') {
+            $query->orderBy('name', 'asc');
+        }
+
+        if ($request->has('sort') && $request->input('sort') === 'price') {
+            $query->orderBy('price', 'asc');
+        }
+
+        $viewData['services'] = $query->get();
 
         return view('service.index')->with('viewData', $viewData);
     }
@@ -22,12 +35,22 @@ class ServiceController extends Controller
     {
         $viewData = [];
         $keyword = $request->input('search');
-        $viewData["subtitle"] = "Service Search Results";
-        $viewData['services'] = Service::where('name', 'LIKE', '%' . $keyword . '%')->get();
-        return view('service.index')->with("viewData", $viewData);
+        $query = Service::where('name', 'LIKE', '%'.$keyword.'%');
+
+        if ($request->has('sort') && $request->input('sort') === 'alphabetical') {
+            $query->orderBy('name', 'asc');
+        }
+
+        if ($request->has('sort') && $request->input('sort') === 'price') {
+            $query->orderBy('price', 'asc');
+        }
+
+        $viewData['services'] = $query->get();
+
+        return view('service.index')->with('viewData', $viewData);
     }
 
-    public function show(string $id) : View
+    public function show(string $id): View
     {
         $viewData = [];
         $service = Service::findOrFail($id);

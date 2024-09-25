@@ -6,8 +6,13 @@
     <div class="col-md-12">
         <form action="{{ route('service.search') }}" method="GET" class="d-flex">
             <input class="form-control me-2" type="search" name="search" placeholder="Search services..." aria-label="Search" required>
+            <select name="sort" class="form-select me-2" onchange="this.form.submit()">
+                <option value="">{{ __('messages.sortBy') }}</option>
+                <option value="alphabetical">{{ __('messages.alphabetical') }}</option>
+                <option value="price">{{ __('messages.priceLowToHigh') }}</option>
+            </select>
             <button class="btn btn-outline-success" type="submit">
-                <i class="bi bi-search"></i> <b>Search</b>
+                <i class="bi bi-search"></i> <b>{{ __('messages.search') }}</b>
             </button>
         </form>
     </div>
