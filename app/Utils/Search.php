@@ -4,18 +4,16 @@ namespace App\Utils;
 
 use App\Models\Product;
 use App\Models\Service;
+use App\Interfaces\SearchInterface;
 
-class Search
+class Search implements SearchInterface
 {
-    public static function searchByName(string $keyword)
-    {
-        // Buscar productos
-        $products = Product::where('name', 'LIKE', '%'.$keyword.'%')->get();
+    public function searchByName(string $keyword): array {
+        
+        $products = Product::where('name', 'LIKE', '%' . $keyword . '%')->get();
 
-        // Buscar servicios
-        $services = Service::where('name', 'LIKE', '%'.$keyword.'%')->get();
+        $services = Service::where('name', 'LIKE', '%' . $keyword . '%')->get();
 
-        // Devolver los resultados combinados
         return [
             'products' => $products,
             'services' => $services,
