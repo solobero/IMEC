@@ -9,7 +9,7 @@ use App\Interfaces\SearchInterface;
 
 class ProductController extends Controller
 {
-    protected $searchService;
+    protected SearchInterface $searchService;
 
     public function __construct(SearchInterface $searchService)
     {
@@ -25,9 +25,7 @@ class ProductController extends Controller
             $keyword = $request->input('search');
             $results = $this->searchService->searchByName($keyword);
             $viewData['products'] = $results['products'];
-        }
-
-        else {
+        } else {
             $viewData['products'] = $query->get();
         }
 
@@ -46,9 +44,9 @@ class ProductController extends Controller
 
     public function show(string $id): View
     {
-        $viewData = [];
-        $product = Product::findOrFail($id);
-        $viewData['product'] = $product;
+        $viewData = [
+            'product' => Product::findOrFail($id),
+        ];
 
         return view('product.show')->with('viewData', $viewData);
     }
@@ -57,7 +55,7 @@ class ProductController extends Controller
     {
         $viewData = [];
         $keyword = $request->input('search');
-        $query = Product::where('name', 'LIKE', '%'.$keyword.'%');
+        $query = Product::where('name', 'LIKE', '%' . $keyword . '%');
 
         if ($request->has('sort') && $request->input('sort') === 'alphabetical') {
             $query->orderBy('name', 'asc');
@@ -74,8 +72,9 @@ class ProductController extends Controller
 
     public function bestSellers(): View
     {
-        $viewData = [];
-        $viewData['products'] = Product::inRandomOrder()->take(2)->get();
+        $viewData = [
+            'products' => Product::inRandomOrder()->take(2)->get(),
+        ];
 
         return view('product.best_sellers')->with('viewData', $viewData);
     }

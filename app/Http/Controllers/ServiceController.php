@@ -9,7 +9,7 @@ use App\Interfaces\SearchInterface;
 
 class ServiceController extends Controller
 {
-    protected $searchService;
+    protected SearchInterface $searchService;
 
     public function __construct(SearchInterface $searchService)
     {
@@ -22,11 +22,10 @@ class ServiceController extends Controller
         $query = Service::query();
 
         if ($request->has('search')) {
+            $keyword = $request->input('search');
             $results = $this->searchService->searchByName($keyword);
             $viewData['services'] = $results['services'];
-        }
-
-        else {
+        } else {
             $viewData['services'] = $query->get();
         }
 
@@ -47,7 +46,7 @@ class ServiceController extends Controller
     {
         $viewData = [];
         $keyword = $request->input('search');
-        $query = Service::where('name', 'LIKE', '%'.$keyword.'%');
+        $query = Service::where('name', 'LIKE', '%' . $keyword . '%');
 
         if ($request->has('sort') && $request->input('sort') === 'alphabetical') {
             $query->orderBy('name', 'asc');
@@ -64,9 +63,9 @@ class ServiceController extends Controller
 
     public function show(string $id): View
     {
-        $viewData = [];
-        $service = Service::findOrFail($id);
-        $viewData['service'] = $service;
+        $viewData = [
+            'service' => Service::findOrFail($id),
+        ];
 
         return view('service.show')->with('viewData', $viewData);
     }
