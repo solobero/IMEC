@@ -8,6 +8,9 @@
             {{ session('error') }}
         </div>
         @endif
+        <div>
+            <p>Saldo disponible: ${{ $viewData['balance'] }}</p>
+        </div>
         <table class="table table-bordered table-striped text-center">
             <thead>
                 <tr>

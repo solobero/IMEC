@@ -14,24 +14,36 @@ class CartServiceController extends Controller
 {
     public function index(Request $request): View
     {
+
+        $user = Auth::user();
+        $balance = $user->getBalance();
+
+        // O si accedes directamente:
+        // $balance = $user->balance;
+
         $total = 0;
         $servicesInCart = [];
         $servicesInSession = $request->session()->get('services');
+
         if ($servicesInSession) {
             $servicesInCart = Service::findMany(array_keys($servicesInSession));
             $total = Service::sumPricesByQuantities($servicesInCart, $servicesInSession);
         }
-        $viewData = [];
-        $viewData['total'] = $total;
-        $viewData['services'] = $servicesInCart;
+
+        $viewData = [
+            'total' => $total,
+            'services' => $servicesInCart,
+            'balance' => $balance,
+        ];
 
         return view('cart.service.index')->with('viewData', $viewData);
     }
 
-    public function add(Request $request, $id): RedirectResponse
+
+    public function add(Request $request, int $id): RedirectResponse
     {
-        $services = $request->session()->get('services');
-        $services[$id] = $request->input('quantity');
+        $services = $request->session()->get('services', []);
+        $services[$id] = $request->input('quantity', 1);
         $request->session()->put('services', $services);
 
         return redirect()->route('cart.service.index');
@@ -44,40 +56,52 @@ class CartServiceController extends Controller
         return back();
     }
 
-    public function purchaseService(Request $request)
+    public function purchaseService(Request $request): View|RedirectResponse
     {
         $servicesInSession = $request->session()->get('services');
-        if ($servicesInSession) {
-            $userId = Auth::user()->getId();
-            $orderService = new OrderService;
-            $orderService->setUserId($userId);
-            $orderService->setTotal(0);
-            $orderService->save();
-            $total = 0;
-            $servicesInCart = Service::findMany(array_keys($servicesInSession));
-            foreach ($servicesInCart as $service) {
-                $quantity = $servicesInSession[$service->getId()];
-                $itemService = new ItemService;
-                $itemService->setQuantity($quantity);
-                $itemService->setPrice($service->getPrice());
-                $itemService->setServiceId($service->getId());
-                $itemService->setOrderServiceId($orderService->getId());
-                $itemService->save();
-                $total = $total + ($service->getPrice() * $quantity);
-            }
-            $orderService->setTotal($total);
-            $orderService->save();
-            $newBalance = Auth::user()->getBalance() - $total;
-            Auth::user()->setBalance($newBalance);
 
-            Auth::user()->save();
-            $request->session()->forget('services');
-            $viewData = [];
-            $viewData['orderService'] = $orderService;
-
-            return view('cart.service.purchase')->with('viewData', $viewData);
-        } else {
+        if (!$servicesInSession) {
             return redirect()->route('cart.service.index');
         }
+
+        $user = Auth::user();
+        $total = 0;
+        $servicesInCart = Service::findMany(array_keys($servicesInSession));
+
+        foreach ($servicesInCart as $service) {
+            $quantity = $servicesInSession[$service->getId()];
+            $total += $service->getPrice() * $quantity;
+        }
+
+        if ($user->getBalance() < $total) {
+            return redirect()->route('cart.service.index')->with('error', 'Saldo insuficiente para completar la compra.');
+        }
+
+        $orderService = new OrderService();
+        $orderService->setUserId($user->getId());
+        $orderService->setTotal($total);
+        $orderService->save();
+
+        foreach ($servicesInCart as $service) {
+            $quantity = $servicesInSession[$service->getId()];
+            $itemService = new ItemService();
+            $itemService->setQuantity($quantity);
+            $itemService->setPrice($service->getPrice());
+            $itemService->setServiceId($service->getId());
+            $itemService->setOrderServiceId($orderService->getId());
+            $itemService->save();
+        }
+
+        $newBalance = $user->getBalance() - $total;
+        $user->setBalance($newBalance);
+        $user->save();
+
+        $request->session()->forget('services');
+
+        $viewData = [
+            'orderService' => $orderService,
+        ];
+
+        return view('cart.service.purchase')->with('viewData', $viewData);
     }
 }

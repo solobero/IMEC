@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ItemService extends Model
 {
     /**
-     * ITEM ATTRIBUTES
+     * ITEM SERVICE ATTRIBUTES
      * $this->attributes['id'] - int - contains the item primary key (id)
      * $this->attributes['quantity'] - int - contains the item quantity
      * $this->attributes['price'] - int - contains the item price
@@ -16,9 +16,11 @@ class ItemService extends Model
      * $this->attributes['service_id'] - int - contains the referenced service id
      * $this->attributes['created_at'] - timestamp - contains the item creation date
      * $this->attributes['updated_at'] - timestamp - contains the item update date
-     * $this->order - OrderService - contains the associated OrderService
+     * RELATIONS
+     * $this->orderService - OrderService - contains the associated OrderService
      * $this->service - Service - contains the associated Service
      */
+    
     protected $table = 'service-items';
 
     public static function validate($request)
@@ -28,7 +30,6 @@ class ItemService extends Model
             'quantity' => 'required|numeric|gt:0',
             'service_id' => 'required|exists:services,id',
             'order_id' => 'required|exists:orders,id',
-
         ]);
     }
 
@@ -77,7 +78,7 @@ class ItemService extends Model
         $this->attributes['service_id'] = $serviceId;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->attributes['created_at'];
     }
@@ -87,7 +88,7 @@ class ItemService extends Model
         $this->attributes['created_at'] = $createdAt;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): Carbon
     {
         return $this->attributes['updated_at'];
     }

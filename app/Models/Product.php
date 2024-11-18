@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-    use HasFactory;
 
     /**
      * PRODUCT ATTRIBUTES
@@ -18,9 +18,12 @@ class Product extends Model
      * $this->attributes['image'] - string - contains the product image
      * $this->attributes['price'] - int - contains the product price
      * $this->attributes['warranty'] - int - contains the product warranty period
+     * $this->attributes['created_at'] - timestamp - contains the order creation date
+     * $this->attributes['updated_at'] - timestamp - contains the order update date
+     * RELATIONS
      * $this->itemsProduct - ItemProduct[] - contains the associated items
-     * $this->itemsService - ItemService [] - contains the associated items
      */
+    
     public static function validate($request)
     {
         $request->validate([
@@ -36,7 +39,7 @@ class Product extends Model
     {
         $total = 0;
         foreach ($products as $product) {
-            $total = $total + ($product->getPrice() * $productsInSession[$product->getId()]);
+            $total += $product->getPrice() * $productsInSession[$product->getId()];
         }
 
         return $total;
@@ -54,7 +57,7 @@ class Product extends Model
         return $this->attributes['name'];
     }
 
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->attributes['name'] = $name;
     }
@@ -64,7 +67,7 @@ class Product extends Model
         return $this->attributes['description'];
     }
 
-    public function setDescription($description): void
+    public function setDescription(string $description): void
     {
         $this->attributes['description'] = $description;
     }
@@ -74,7 +77,7 @@ class Product extends Model
         return $this->attributes['image'];
     }
 
-    public function setImage($image): void
+    public function setImage(string $image): void
     {
         $this->attributes['image'] = $image;
     }
@@ -84,7 +87,7 @@ class Product extends Model
         return $this->attributes['price'];
     }
 
-    public function setPrice($price): void
+    public function setPrice(int $price): void
     {
         $this->attributes['price'] = $price;
     }
@@ -94,7 +97,7 @@ class Product extends Model
         return $this->attributes['warranty'];
     }
 
-    public function setWarranty($warranty): void
+    public function setWarranty(int $warranty): void
     {
         $this->attributes['warranty'] = $warranty;
     }
@@ -106,11 +109,31 @@ class Product extends Model
 
     public function getItemsProduct()
     {
-        return $this->product_items;
+        return $this->itemsProduct()->get();
     }
 
-    public function setItemsProduct($product_items): void
+    public function setItemsProduct($itemsProduct): void
     {
-        $this->product_items = $product_items;
+        $this->itemsProduct = $itemsProduct;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function setCreatedAt($createdAt): void
+    {
+        $this->attributes['created_at'] = $createdAt;
+    }
+
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->attributes['updated_at'];
+    }
+
+    public function setUpdatedAt($updatedAt): void
+    {
+        $this->attributes['updated_at'] = $updatedAt;
     }
 }

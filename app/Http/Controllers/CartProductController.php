@@ -14,24 +14,32 @@ class CartProductController extends Controller
 {
     public function index(Request $request): View
     {
+
+        $user = Auth::user();
+        $balance = $user->getBalance();
+
         $total = 0;
         $productsInCart = [];
         $productsInSession = $request->session()->get('products');
+
         if ($productsInSession) {
             $productsInCart = Product::findMany(array_keys($productsInSession));
             $total = Product::sumPricesByQuantities($productsInCart, $productsInSession);
         }
-        $viewData = [];
-        $viewData['total'] = $total;
-        $viewData['products'] = $productsInCart;
+
+        $viewData = [
+            'total' => $total,
+            'products' => $productsInCart,
+            'balance' => $balance,
+        ];
 
         return view('cart.product.index')->with('viewData', $viewData);
     }
 
-    public function add(Request $request, $id): RedirectResponse
+    public function add(Request $request, int $id): RedirectResponse
     {
-        $products = $request->session()->get('products');
-        $products[$id] = $request->input('quantity');
+        $products = $request->session()->get('products', []);
+        $products[$id] = $request->input('quantity', 1);
         $request->session()->put('products', $products);
 
         return redirect()->route('cart.product.index');
@@ -44,61 +52,54 @@ class CartProductController extends Controller
         return back();
     }
 
-    public function purchaseProduct(Request $request)
+    public function purchaseProduct(Request $request): View|RedirectResponse
     {
         $productsInSession = $request->session()->get('products');
-        if ($productsInSession) {
-            $user = Auth::user(); 
-            $userId = $user->getId();
-            $orderProduct = new OrderProduct;
-            $orderProduct->setUserId($userId);
-            $orderProduct->setTotal(0);
-            $orderProduct->save();
 
-            $total = 0;
-            $productsInCart = Product::findMany(array_keys($productsInSession));
-
-            
-            foreach ($productsInCart as $product) {
-                $quantity = $productsInSession[$product->getId()];
-                $total += ($product->getPrice() * $quantity);
-            }
-
-            
-            if ($user->getBalance() < $total) {
-                return redirect()->route('cart.product.index')->with('error', 'Insufficient balance to complete the purchase.');
-            }
-
-            
-            foreach ($productsInCart as $product) {
-                $quantity = $productsInSession[$product->getId()];
-                $itemProduct = new ItemProduct;
-                $itemProduct->setQuantity($quantity);
-                $itemProduct->setPrice($product->getPrice());
-                $itemProduct->setProductId($product->getId());
-                $itemProduct->setOrderProductId($orderProduct->getId());
-                $itemProduct->save();
-            }
-
-            
-            $orderProduct->setTotal($total);
-            $orderProduct->save();
-
-            
-            $newBalance = $user->getBalance() - $total;
-            $user->setBalance($newBalance);
-            $user->save();
-
-            
-            $request->session()->forget('products');
-
-            
-            $viewData = [];
-            $viewData['orderProduct'] = $orderProduct;
-
-            return view('cart.product.purchase')->with('viewData', $viewData);
-        } else {
+        if (!$productsInSession) {
             return redirect()->route('cart.product.index');
         }
+
+        $user = Auth::user(); 
+        $total = 0;
+        $productsInCart = Product::findMany(array_keys($productsInSession));
+
+        foreach ($productsInCart as $product) {
+            $quantity = $productsInSession[$product->getId()];
+            $total += $product->getPrice() * $quantity;
+        }
+
+        if ($user->getBalance() < $total) {
+            return redirect()->route('cart.product.index')
+                ->with('error', 'Saldo insuficiente para completar la compra.');
+        }
+
+        $userId = $user->getId();
+        $orderProduct = new OrderProduct();
+        $orderProduct->setUserId($userId);
+        $orderProduct->setTotal($total);
+        $orderProduct->save();
+
+        foreach ($productsInCart as $product) {
+            $quantity = $productsInSession[$product->getId()];
+            $itemProduct = new ItemProduct();
+            $itemProduct->setQuantity($quantity);
+            $itemProduct->setPrice($product->getPrice());
+            $itemProduct->setProductId($product->getId());
+            $itemProduct->setOrderProductId($orderProduct->getId());
+            $itemProduct->save();
+        }
+
+        $newBalance = $user->getBalance() - $total;
+        $user->setBalance($newBalance);
+        $user->save();
+
+        $request->session()->forget('products');
+
+        $viewData = [
+            'orderProduct' => $orderProduct,
+        ];
+
+        return view('cart.product.purchase')->with('viewData', $viewData);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\OrderProduct;
 use App\Models\OrderService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class AdminOrderController extends Controller
@@ -21,20 +22,18 @@ class AdminOrderController extends Controller
         return view('admin.order.index')->with('viewData', $viewData);
     }
 
-    public function shipOrder($id)
+    public function shipOrder($id): RedirectResponse
     {
         $order = OrderProduct::findOrFail($id);
-
         $order->status = 'Shipped';
         $order->save();
 
         return redirect()->route('admin.order.index');
     }
 
-    public function shipService($id)
+    public function shipService($id): RedirectResponse
     {
         $order = OrderService::findOrFail($id);
-
         $order->status = 'Complete';
         $order->save();
 

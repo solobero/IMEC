@@ -2,20 +2,26 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
     /**
-     * service ATTRIBUTES
+     * SERVICE ATTRIBUTES
      * $this->attributes['id'] - int - contains the service primary key (id)
      * $this->attributes['name'] - string - contains the service name
      * $this->attributes['description'] - string - contains the service description
-     * $this->attributes['category'] - string - contains the service description
+     * $this->attributes['category'] - string - contains the service category
      * $this->attributes['image'] - string - contains the service image
      * $this->attributes['price'] - int - contains the service price
+     * $this->attributes['created_at'] - timestamp - contains the order creation date
+     * $this->attributes['updated_at'] - timestamp - contains the order update date
+     * RELATIONS
+     * $this->itemsService - ItemService[] - contains the associated items
      */
+    
     public static function validate($request)
     {
         $request->validate([
@@ -33,12 +39,12 @@ class Service extends Model
     {
         $total = 0;
         foreach ($services as $service) {
-            $total = $total + ($service->getPrice() * $servicesInSession[$service->getId()]);
+            $total += $service->getPrice() * $servicesInSession[$service->getId()];
         }
 
         return $total;
     }
-
+    
     public function getId(): int
     {
         return $this->attributes['id'];
@@ -49,7 +55,7 @@ class Service extends Model
         return $this->attributes['name'];
     }
 
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->attributes['name'] = $name;
     }
@@ -59,7 +65,7 @@ class Service extends Model
         return $this->attributes['description'];
     }
 
-    public function setDescription($description): void
+    public function setDescription(string $description): void
     {
         $this->attributes['description'] = $description;
     }
@@ -69,7 +75,7 @@ class Service extends Model
         return $this->attributes['image'];
     }
 
-    public function setImage($image): void
+    public function setImage(string $image): void
     {
         $this->attributes['image'] = $image;
     }
@@ -79,19 +85,9 @@ class Service extends Model
         return $this->attributes['price'];
     }
 
-    public function setPrice($price): void
+    public function setPrice(int $price): void
     {
         $this->attributes['price'] = $price;
-    }
-
-    public function getCategory(): string
-    {
-        return $this->attributes['category'];
-    }
-
-    public function setCategory($category): void
-    {
-        $this->attributes['category'] = $category;
     }
 
     public function itemsService(): HasMany
@@ -101,11 +97,31 @@ class Service extends Model
 
     public function getItemsService()
     {
-        return $this->service_items;
+        return $this->itemsService()->get();
     }
 
-    public function setItemsService($service_items)
+    public function setItemsService($itemsService): void
     {
-        $this->service_items = $service_items;
+        $this->itemsService = $itemsService;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function setCreatedAt($createdAt): void
+    {
+        $this->attributes['created_at'] = $createdAt;
+    }
+
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->attributes['updated_at'];
+    }
+
+    public function setUpdatedAt($updatedAt): void
+    {
+        $this->attributes['updated_at'] = $updatedAt;
     }
 }

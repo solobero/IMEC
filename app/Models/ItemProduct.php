@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ItemProduct extends Model
 {
     /**
-     * ITEM ATTRIBUTES
+     * ITEM PRODUCT ATTRIBUTES
      * $this->attributes['id'] - int - contains the item primary key (id)
      * $this->attributes['quantity'] - int - contains the item quantity
      * $this->attributes['price'] - int - contains the item price
@@ -16,9 +16,11 @@ class ItemProduct extends Model
      * $this->attributes['product_id'] - int - contains the referenced product id
      * $this->attributes['created_at'] - timestamp - contains the item creation date
      * $this->attributes['updated_at'] - timestamp - contains the item update date
-     * $this->order - OrderProduct - contains the associated OrderProduct
+     * RELATIONS
+     * $this->orderProduct - OrderProduct - contains the associated OrderProduct
      * $this->product - Product - contains the associated Product
      */
+    
     protected $table = 'product-items';
 
     public static function validate($request)
@@ -28,7 +30,6 @@ class ItemProduct extends Model
             'quantity' => 'required|numeric|gt:0',
             'product_id' => 'required|exists:products,id',
             'order_id' => 'required|exists:orders,id',
-
         ]);
     }
 
@@ -77,7 +78,7 @@ class ItemProduct extends Model
         $this->attributes['product_id'] = $productId;
     }
 
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->attributes['created_at'];
     }
@@ -87,7 +88,7 @@ class ItemProduct extends Model
         $this->attributes['created_at'] = $createdAt;
     }
 
-    public function getUpdatedAt()
+    public function getUpdatedAt(): Carbon
     {
         return $this->attributes['updated_at'];
     }

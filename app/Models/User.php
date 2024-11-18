@@ -23,9 +23,11 @@ class User extends Authenticatable
      * $this->attributes['balance'] - int - contains the user balance
      * $this->attributes['created_at'] - timestamp - contains the user creation date
      * $this->attributes['updated_at'] - timestamp - contains the user update date
+     * RELATIONS
      * $this->ordersProduct - OrderProduct[] - contains the associated orders
      * $this->ordersService - OrderService[] - contains the associated orders
      */
+
     protected $fillable = [
         'name',
         'email',
@@ -33,7 +35,6 @@ class User extends Authenticatable
         'balance',
     ];
 
-    // Getter and Setter for name
     public function getName(): string
     {
         return $this->attributes['name'];
@@ -44,7 +45,6 @@ class User extends Authenticatable
         $this->attributes['name'] = $name;
     }
 
-    // Getter and Setter for email
     public function getEmail(): string
     {
         return $this->attributes['email'];
@@ -68,7 +68,6 @@ class User extends Authenticatable
     }
      */
 
-    // Getter and Setter for password
     public function getPassword(): string
     {
         return $this->attributes['password'];
@@ -92,19 +91,16 @@ class User extends Authenticatable
     }
      */
 
-    // Accessor for role
     public function getRoleAttribute(): string
     {
         return $this->attributes['role'];
     }
 
-    // Mutator for role
     public function setRoleAttribute(string $role): void
     {
         $this->attributes['role'] = $role;
     }
 
-    // Getter and Setter for balance
     public function getBalance(): int
     {
         return $this->attributes['balance'];
@@ -115,7 +111,6 @@ class User extends Authenticatable
         $this->attributes['balance'] = $balance;
     }
 
-    // Getter and Setter for created_at
     public function getCreatedAt(): ?string
     {
         return $this->attributes['created_at'];
@@ -126,7 +121,6 @@ class User extends Authenticatable
         $this->attributes['created_at'] = $createdAt;
     }
 
-    // Getter and Setter for updated_at
     public function getUpdatedAt(): ?string
     {
         return $this->attributes['updated_at'];
@@ -190,7 +184,6 @@ class User extends Authenticatable
         $this->service_orders = $service_orders;
     }
 
-    // Getter for id
     public function getId(): int
     {
         return $this->attributes['id'];

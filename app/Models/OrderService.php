@@ -10,15 +10,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class OrderService extends Model
 {
     /**
-     * ORDERSERVICE ATTRIBUTES
+     * ORDER SERVICE ATTRIBUTES
      * $this->attributes['id'] - int - contains the order primary key (id)
-     * $this->attributes['total'] - string - contains the order name
+     * $this->attributes['total'] - string - contains the order total amount
      * $this->attributes['user_id'] - int - contains the referenced user id
      * $this->attributes['created_at'] - timestamp - contains the order creation date
      * $this->attributes['updated_at'] - timestamp - contains the order update date
+     * $this->attributes['status'] - string - contains the status of the delivery
+     * RELATIONS
      * $this->user - User - contains the associated User
-     * $this->items - Item[] - contains the associated items
+     * $this->itemsService - ItemService[] - contains the associated items
      */
+    
     protected $table = 'service-orders';
 
     public static function validate($request)
@@ -34,12 +37,12 @@ class OrderService extends Model
         return $this->attributes['id'];
     }
 
-    public function getTotal(): int
+    public function getTotal(): string
     {
         return $this->attributes['total'];
     }
 
-    public function setTotal(int $total): void
+    public function setTotal(string $total): void
     {
         $this->attributes['total'] = $total;
     }
