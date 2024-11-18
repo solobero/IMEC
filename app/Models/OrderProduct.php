@@ -10,15 +10,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class OrderProduct extends Model
 {
     /**
-     * ORDERPRODUCT ATTRIBUTES
+     * ORDER PRODUCT ATTRIBUTES
      * $this->attributes['id'] - int - contains the order primary key (id)
-     * $this->attributes['total'] - string - contains the order name
+     * $this->attributes['total'] - string - contains the order total price
      * $this->attributes['user_id'] - int - contains the referenced user id
      * $this->attributes['created_at'] - timestamp - contains the order creation date
      * $this->attributes['updated_at'] - timestamp - contains the order update date
+     * RELATIONS
      * $this->user - User - contains the associated User
-     * $this->items - Item[] - contains the associated items
+     * $this->itemsProduct - ItemProduct[] - contains the associated product items
      */
+
     protected $table = 'product-orders';
 
     public static function validate($request)
@@ -59,17 +61,17 @@ class OrderProduct extends Model
         return $this->attributes['created_at'];
     }
 
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt(string $createdAt): void
     {
         $this->attributes['created_at'] = $createdAt;
     }
 
-    public function getUpdatedAt(): Carbon
+    public function getUpdatedAt(): string
     {
         return $this->attributes['updated_at'];
     }
 
-    public function setUpdatedAt($updatedAt): void
+    public function setUpdatedAt(string $updatedAt): void
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
@@ -79,29 +81,9 @@ class OrderProduct extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function setUser($user): void
-    {
-        $this->user = $user;
-    }
-
     public function itemsProduct(): HasMany
     {
         return $this->hasMany(ItemProduct::class, 'order_id');
-    }
-
-    public function getItemsProduct()
-    {
-        return $this->itemsProduct()->get(); 
-    }
-
-    public function setItemsProduct($product_items): void
-    {
-        $this->product_items = $product_items;
     }
 
     public function getStatus(): string
@@ -109,7 +91,7 @@ class OrderProduct extends Model
         return $this->attributes['status'];
     }
 
-    public function setStatus($status): void
+    public function setStatus(string $status): void
     {
         $this->attributes['status'] = $status;
     }

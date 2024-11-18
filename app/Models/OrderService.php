@@ -10,15 +10,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class OrderService extends Model
 {
     /**
-     * ORDERSERVICE ATTRIBUTES
+     * ORDER SERVICE ATTRIBUTES
      * $this->attributes['id'] - int - contains the order primary key (id)
-     * $this->attributes['total'] - string - contains the order name
+     * $this->attributes['total'] - string - contains the order total amount
      * $this->attributes['user_id'] - int - contains the referenced user id
      * $this->attributes['created_at'] - timestamp - contains the order creation date
      * $this->attributes['updated_at'] - timestamp - contains the order update date
+     * RELATIONS
      * $this->user - User - contains the associated User
-     * $this->items - Item[] - contains the associated items
+     * $this->itemsService - ItemService[] - contains the associated items
      */
+    
     protected $table = 'service-orders';
 
     public static function validate($request)
@@ -34,12 +36,12 @@ class OrderService extends Model
         return $this->attributes['id'];
     }
 
-    public function getTotal(): int
+    public function getTotal(): string
     {
         return $this->attributes['total'];
     }
 
-    public function setTotal(int $total): void
+    public function setTotal(string $total): void
     {
         $this->attributes['total'] = $total;
     }
@@ -54,12 +56,12 @@ class OrderService extends Model
         $this->attributes['user_id'] = $userId;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): Carbon
     {
         return $this->attributes['created_at'];
     }
 
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt(Carbon $createdAt): void
     {
         $this->attributes['created_at'] = $createdAt;
     }
@@ -69,7 +71,7 @@ class OrderService extends Model
         return $this->attributes['updated_at'];
     }
 
-    public function setUpdatedAt($updatedAt): void
+    public function setUpdatedAt(Carbon $updatedAt): void
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
@@ -79,16 +81,6 @@ class OrderService extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getUser(): User
-    {
-        return $this->user;
-    }
-
-    public function setUser($user): void
-    {
-        $this->user = $user;
-    }
-
     public function itemsService(): HasMany
     {
         return $this->hasMany(ItemService::class, 'order_id');
@@ -96,12 +88,12 @@ class OrderService extends Model
 
     public function getItemsService()
     {
-        return $this->itemsService()->get(); 
+        return $this->itemsService()->get();
     }
 
-    public function setItemsService($service_items): void
+    public function setItemsService($itemsService): void
     {
-        $this->service_items = $service_items;
+        $this->itemsService = $itemsService;
     }
 
     public function getStatus(): string
@@ -109,7 +101,7 @@ class OrderService extends Model
         return $this->attributes['status'];
     }
 
-    public function setStatus($status): void
+    public function setStatus(string $status): void
     {
         $this->attributes['status'] = $status;
     }
