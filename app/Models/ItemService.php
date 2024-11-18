@@ -105,7 +105,6 @@ class ItemService extends Model
     public function getOrderService(): OrderService
     {
         return $this->service_orders;
-
     }
 
     public function setOrderService(OrderService $orderService): void

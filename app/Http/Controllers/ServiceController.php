@@ -5,17 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Interfaces\SearchInterface;
 
 class ServiceController extends Controller
 {
+    protected $searchService;
+
+    public function __construct(SearchInterface $searchService)
+    {
+        $this->searchService = $searchService;
+    }
+
     public function index(Request $request): View
     {
         $viewData = [];
         $query = Service::query();
 
         if ($request->has('search')) {
-            $keyword = $request->input('search');
-            $query->where('name', 'LIKE', '%'.$keyword.'%');
+            $results = $this->searchService->searchByName($keyword);
+            $viewData['services'] = $results['services'];
+        }
+
+        else {
+            $viewData['services'] = $query->get();
         }
 
         if ($request->has('sort') && $request->input('sort') === 'alphabetical') {

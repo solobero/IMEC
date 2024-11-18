@@ -7,7 +7,6 @@
     <div class="card-body"> 
         <b>{{__('messages.date') }}</b> {{ $orderService->getCreatedAt() }}<br /> 
         <b>{{__('messages.total') }}</b> {{ $orderService->getTotal() }}<br />
-
         <table class="table table-bordered table-striped text-center mt-3">
             <thead>
                 <tr>

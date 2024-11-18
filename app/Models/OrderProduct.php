@@ -89,16 +89,6 @@ class OrderProduct extends Model
         $this->user = $user;
     }
 
-    public function getProductId(): int
-    {
-        return $this->attributes['product_id'];
-    }
-
-    public function setProductId(int $productId): void
-    {
-        $this->attributes['product_id'] = $productId;
-    }
-
     public function itemsProduct(): HasMany
     {
         return $this->hasMany(ItemProduct::class, 'order_id');
@@ -106,7 +96,7 @@ class OrderProduct extends Model
 
     public function getItemsProduct()
     {
-        return $this->itemsProduct()->get(); // Devuelve la colección de items
+        return $this->itemsProduct()->get(); 
     }
 
     public function setItemsProduct($product_items): void

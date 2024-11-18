@@ -96,7 +96,7 @@ class OrderService extends Model
 
     public function getItemsService()
     {
-        return $this->itemsService()->get(); // Devuelve la colección de items
+        return $this->itemsService()->get(); 
     }
 
     public function setItemsService($service_items): void
