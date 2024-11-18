@@ -83,17 +83,17 @@ class ItemService extends Model
         return $this->attributes['created_at'];
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt($createdAt): void
     {
         $this->attributes['created_at'] = $createdAt;
     }
 
-    public function getUpdatedAt(): string
+    public function getUpdatedAt(): Carbon
     {
         return $this->attributes['updated_at'];
     }
 
-    public function setUpdatedAt(string $updatedAt): void
+    public function setUpdatedAt($updatedAt): void
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
@@ -103,8 +103,28 @@ class ItemService extends Model
         return $this->belongsTo(OrderService::class);
     }
 
+    public function getOrderService(): OrderService
+    {
+        return $this->service_orders;
+    }
+
+    public function setOrderService(OrderService $orderService): void
+    {
+        $this->orderService = $orderService;
+    }
+
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
+    }
+
+    public function getService(): Service
+    {
+        return $this->service;
+    }
+
+    public function setService(Service $service): void
+    {
+        $this->service = $service;
     }
 }

@@ -16,6 +16,7 @@ class OrderProduct extends Model
      * $this->attributes['user_id'] - int - contains the referenced user id
      * $this->attributes['created_at'] - timestamp - contains the order creation date
      * $this->attributes['updated_at'] - timestamp - contains the order update date
+     * $this->attributes['status'] - string - contains the status of the delivery
      * RELATIONS
      * $this->user - User - contains the associated User
      * $this->itemsProduct - ItemProduct[] - contains the associated product items
@@ -61,17 +62,17 @@ class OrderProduct extends Model
         return $this->attributes['created_at'];
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt($createdAt): void
     {
         $this->attributes['created_at'] = $createdAt;
     }
 
-    public function getUpdatedAt(): string
+    public function getUpdatedAt(): Carbon
     {
         return $this->attributes['updated_at'];
     }
 
-    public function setUpdatedAt(string $updatedAt): void
+    public function setUpdatedAt($updatedAt): void
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
@@ -81,9 +82,29 @@ class OrderProduct extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
     public function itemsProduct(): HasMany
     {
         return $this->hasMany(ItemProduct::class, 'order_id');
+    }
+
+    public function getItemsProduct()
+    {
+        return $this->itemsProduct()->get(); 
+    }
+
+    public function setItemsProduct($product_items): void
+    {
+        $this->product_items = $product_items;
     }
 
     public function getStatus(): string
@@ -91,7 +112,7 @@ class OrderProduct extends Model
         return $this->attributes['status'];
     }
 
-    public function setStatus(string $status): void
+    public function setStatus($status): void
     {
         $this->attributes['status'] = $status;
     }

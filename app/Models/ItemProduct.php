@@ -83,17 +83,17 @@ class ItemProduct extends Model
         return $this->attributes['created_at'];
     }
 
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt($createdAt): void
     {
         $this->attributes['created_at'] = $createdAt;
     }
 
-    public function getUpdatedAt(): string
+    public function getUpdatedAt(): Carbon
     {
         return $this->attributes['updated_at'];
     }
 
-    public function setUpdatedAt(string $updatedAt): void
+    public function setUpdatedAt($updatedAt): void
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
@@ -103,8 +103,28 @@ class ItemProduct extends Model
         return $this->belongsTo(OrderProduct::class);
     }
 
+    public function getOrderProduct(): OrderProduct
+    {
+        return $this->product_orders;
+    }
+
+    public function setOrderProduct(OrderProduct $orderProduct): void
+    {
+        $this->orderProduct = $orderProduct;
+    }
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function getProduct(): Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(Product $product): void
+    {
+        $this->product = $product;
     }
 }

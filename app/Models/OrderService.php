@@ -16,6 +16,7 @@ class OrderService extends Model
      * $this->attributes['user_id'] - int - contains the referenced user id
      * $this->attributes['created_at'] - timestamp - contains the order creation date
      * $this->attributes['updated_at'] - timestamp - contains the order update date
+     * $this->attributes['status'] - string - contains the status of the delivery
      * RELATIONS
      * $this->user - User - contains the associated User
      * $this->itemsService - ItemService[] - contains the associated items
@@ -56,12 +57,12 @@ class OrderService extends Model
         $this->attributes['user_id'] = $userId;
     }
 
-    public function getCreatedAt(): Carbon
+    public function getCreatedAt(): string
     {
         return $this->attributes['created_at'];
     }
 
-    public function setCreatedAt(Carbon $createdAt): void
+    public function setCreatedAt($createdAt): void
     {
         $this->attributes['created_at'] = $createdAt;
     }
@@ -71,7 +72,7 @@ class OrderService extends Model
         return $this->attributes['updated_at'];
     }
 
-    public function setUpdatedAt(Carbon $updatedAt): void
+    public function setUpdatedAt($updatedAt): void
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
@@ -81,6 +82,16 @@ class OrderService extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
     public function itemsService(): HasMany
     {
         return $this->hasMany(ItemService::class, 'order_id');
@@ -88,12 +99,12 @@ class OrderService extends Model
 
     public function getItemsService()
     {
-        return $this->itemsService()->get();
+        return $this->itemsService()->get(); 
     }
 
-    public function setItemsService($itemsService): void
+    public function setItemsService($service_items): void
     {
-        $this->itemsService = $itemsService;
+        $this->service_items = $service_items;
     }
 
     public function getStatus(): string
@@ -101,7 +112,7 @@ class OrderService extends Model
         return $this->attributes['status'];
     }
 
-    public function setStatus(string $status): void
+    public function setStatus($status): void
     {
         $this->attributes['status'] = $status;
     }

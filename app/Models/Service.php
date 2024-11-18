@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -15,6 +16,8 @@ class Service extends Model
      * $this->attributes['category'] - string - contains the service category
      * $this->attributes['image'] - string - contains the service image
      * $this->attributes['price'] - int - contains the service price
+     * $this->attributes['created_at'] - timestamp - contains the order creation date
+     * $this->attributes['updated_at'] - timestamp - contains the order update date
      * RELATIONS
      * $this->itemsService - ItemService[] - contains the associated items
      */
@@ -100,5 +103,25 @@ class Service extends Model
     public function setItemsService($itemsService): void
     {
         $this->itemsService = $itemsService;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->attributes['created_at'];
+    }
+
+    public function setCreatedAt($createdAt): void
+    {
+        $this->attributes['created_at'] = $createdAt;
+    }
+
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->attributes['updated_at'];
+    }
+
+    public function setUpdatedAt($updatedAt): void
+    {
+        $this->attributes['updated_at'] = $updatedAt;
     }
 }

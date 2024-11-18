@@ -14,6 +14,13 @@ class CartServiceController extends Controller
 {
     public function index(Request $request): View
     {
+
+        $user = Auth::user();
+        $balance = $user->getBalance();
+
+        // O si accedes directamente:
+        // $balance = $user->balance;
+
         $total = 0;
         $servicesInCart = [];
         $servicesInSession = $request->session()->get('services');
@@ -26,10 +33,12 @@ class CartServiceController extends Controller
         $viewData = [
             'total' => $total,
             'services' => $servicesInCart,
+            'balance' => $balance,
         ];
 
         return view('cart.service.index')->with('viewData', $viewData);
     }
+
 
     public function add(Request $request, int $id): RedirectResponse
     {

@@ -3,6 +3,9 @@
 @section('content') <div class="card">
     <div class="card-header"> {{__('messages.cartServiceSubtitle') }} </div>
     <div class="card-body">
+        <div>
+            <p>Saldo disponible: ${{ $viewData['balance'] }}</p>
+        </div>
         <table class="table table-bordered table-striped text-center">
             <thead>
                 <tr>
