@@ -56,14 +56,22 @@ class CartServiceController extends Controller
         }
 
         $user = Auth::user();
-        $userId = $user->getId();
-        $orderService = new OrderService();
-        $orderService->setUserId($userId);
-        $orderService->setTotal(0);
-        $orderService->save();
-
         $total = 0;
         $servicesInCart = Service::findMany(array_keys($servicesInSession));
+
+        foreach ($servicesInCart as $service) {
+            $quantity = $servicesInSession[$service->getId()];
+            $total += $service->getPrice() * $quantity;
+        }
+
+        if ($user->getBalance() < $total) {
+            return redirect()->route('cart.service.index')->with('error', 'Saldo insuficiente para completar la compra.');
+        }
+
+        $orderService = new OrderService();
+        $orderService->setUserId($user->getId());
+        $orderService->setTotal($total);
+        $orderService->save();
 
         foreach ($servicesInCart as $service) {
             $quantity = $servicesInSession[$service->getId()];
@@ -73,11 +81,7 @@ class CartServiceController extends Controller
             $itemService->setServiceId($service->getId());
             $itemService->setOrderServiceId($orderService->getId());
             $itemService->save();
-            $total += $service->getPrice() * $quantity;
         }
-
-        $orderService->setTotal($total);
-        $orderService->save();
 
         $newBalance = $user->getBalance() - $total;
         $user->setBalance($newBalance);
