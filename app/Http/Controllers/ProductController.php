@@ -25,7 +25,9 @@ class ProductController extends Controller
             $keyword = $request->input('search');
             $results = $this->searchService->searchByName($keyword);
             $viewData['products'] = $results['products'];
-        } else {
+        } 
+        
+        else {
             $viewData['products'] = $query->get();
         }
 

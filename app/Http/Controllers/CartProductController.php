@@ -9,9 +9,25 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Interfaces\ReportGeneratorInterface;
+use App\Utils\PDFReportGenerator;
+use App\Utils\TXTReportGenerator;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 
 class CartProductController extends Controller
 {
+
+    protected PDFReportGenerator $pdfReportGenerator;
+    protected TXTReportGenerator $txtReportGenerator;
+
+    
+    public function __construct(PDFReportGenerator $pdfReportGenerator, TXTReportGenerator $txtReportGenerator)
+    {
+        $this->pdfReportGenerator = $pdfReportGenerator;
+        $this->txtReportGenerator = $txtReportGenerator;
+    }
+
     public function index(Request $request): View
     {
 
@@ -52,6 +68,33 @@ class CartProductController extends Controller
         return back();
     }
 
+    public function downloadPdfReport(int $id): BinaryFileResponse|RedirectResponse
+    {
+        $orderProduct = OrderProduct::find($id);
+        if ($orderProduct) {
+          $filePath = storage_path('reports/pdf/order_' . $id . '.pdf');
+          if (file_exists($filePath)) {
+            
+            return response()->download($filePath);
+           }
+        }
+
+        return redirect()->back()->with('error', __('messages.errorPDF'));
+    }
+
+    public function downloadTxtReport(int $id): BinaryFileResponse|RedirectResponse
+    {
+        $orderProduct = OrderProduct::find($id);
+        if ($orderProduct) {
+            $filePath = storage_path('reports/txt/order_' . $id . '.txt');
+            if (file_exists($filePath)) {
+                return response()->download($filePath);
+            }
+        }
+    
+        return redirect()->back()->with('error', __('messages.errorTXT'));
+    }
+
     public function purchaseProduct(Request $request): View|RedirectResponse
     {
         $productsInSession = $request->session()->get('products');
@@ -71,7 +114,7 @@ class CartProductController extends Controller
 
         if ($user->getBalance() < $total) {
             return redirect()->route('cart.product.index')
-                ->with('error', 'Saldo insuficiente para completar la compra.');
+                ->with('error', __('messages.insufficientBalance'));
         }
 
         $userId = $user->getId();
@@ -93,6 +136,9 @@ class CartProductController extends Controller
         $newBalance = $user->getBalance() - $total;
         $user->setBalance($newBalance);
         $user->save();
+
+        $this->pdfReportGenerator->generateReport($orderProduct);
+        $this->txtReportGenerator->generateReport($orderProduct);
 
         $request->session()->forget('products');
 

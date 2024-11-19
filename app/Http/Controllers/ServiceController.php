@@ -25,7 +25,9 @@ class ServiceController extends Controller
             $keyword = $request->input('search');
             $results = $this->searchService->searchByName($keyword);
             $viewData['services'] = $results['services'];
-        } else {
+        } 
+        
+        else {
             $viewData['services'] = $query->get();
         }
 

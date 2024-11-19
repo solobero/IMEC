@@ -8,7 +8,7 @@
     <title>@yield('title',__('messages.name'))</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
-    <!--Header-->
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-2 custom-navbar">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home.index') }}">
@@ -84,6 +84,13 @@
             </div>
         </div>
     </nav>
+    
+    @if(isset($exchangeRate) && $exchangeRate !== 'Unavailable')
+        <div class="bg-info text-white text-center py-1">
+            <small>{{ __('messages.exchangeRateMessage', ['rate' => $exchangeRate]) }}</small>
+        </div>
+    @endif
+
     <header class="masthead bg-primary text-white text-center py-2">
         <div class="container d-flex align-items-center flex-column">
             <h2>@yield('subtitle',__('messages.name'))</h2>

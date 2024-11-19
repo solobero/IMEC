@@ -3,6 +3,7 @@
 use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Dompdf\Dompdf;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index');
 
@@ -14,6 +15,9 @@ Route::get('/product/{id}', 'App\Http\Controllers\ProductController@show')->name
 Route::get('/cartProduct', 'App\Http\Controllers\CartProductController@index')->name('cart.product.index');
 Route::get('/cartProduct/delete', 'App\Http\Controllers\CartProductController@delete')->name('cart.product.delete');
 Route::post('/cartProduct/add/{id}', 'App\Http\Controllers\CartProductController@add')->name('cart.product.add');
+
+Route::get('/order/{id}/report/txt', 'App\Http\Controllers\CartProductController@downloadTxtReport')->name('order.report.txt');
+Route::get('/order/{id}/report/pdf', 'App\Http\Controllers\CartProductController@downloadPdfReport')->name('order.report.pdf');
 
 Route::get('/service', 'App\Http\Controllers\ServiceController@index')->name('service.index');
 Route::get('/service/search', 'App\Http\Controllers\ServiceController@search')->name('service.search');

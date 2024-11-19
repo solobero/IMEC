@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('title', __('messages.name'))
 @section('content')
 <div class="text-center">
@@ -7,6 +8,7 @@
         <div class="card-img-overlay">
             <h5 class="card-title">{{__('messages.welcome') }}</h5>
             <p class="card-text">{{__('messages.slogan') }}</p>
+
         </div>
     </div>
 </div>

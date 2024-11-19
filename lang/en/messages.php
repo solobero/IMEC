@@ -76,5 +76,17 @@ return [
     'sortBy' => 'Sort By',
     'alphabetical' => 'Alphabetical',
     'priceLowToHigh' => 'Price: Low to High',
+    'exchangeRateMessage' => 'Current Exchange Rate (EUR to COP): :rate COP',
+    'reportPDF' => 'Report PDF',
+    'errorPDF' => 'PDF report is not available.',
+    'reportTXT' => 'Report TXT',
+    'errorTXT' => 'TXT report is not available.',
+    'insufficientBalance' => 'Insufficient balance to complete the purchase.',
+    'creationDate' => 'Creation Date: ',
+    'lastUpdate' => 'Last Update: ',
+    'orderReport' => 'Order Report # ',
+    'productDetails' => 'Product Details ',
+    'productName' => 'Product Name ',
+    'price' => 'Price ',
 
 ];
