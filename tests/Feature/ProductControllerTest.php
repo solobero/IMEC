@@ -17,17 +17,15 @@ class ProductControllerTest extends TestCase
      */
     public function testIndexReturnsAllProducts(): void
     {
-        // Arrange: Create mock products
+        
         Product::factory()->create(['name' => 'Gaming Laptop']);
         Product::factory()->create(['name' => 'Mechanical Keyboard']);
 
-        // Act: Perform a GET request to the index endpoint
         $response = $this->get(route('product.index'));
 
-        // Assert: Verify the response status and view data
         $response->assertStatus(200);
         $response->assertViewHas('viewData.products', function (mixed $products): bool {
-            return $products->count() === 2; // Validate that two products are returned
+            return $products->count() === 2; 
         });
     }
 
@@ -38,16 +36,14 @@ class ProductControllerTest extends TestCase
      */
     public function testShowReturnsSingleProduct(): void
     {
-        // Arrange: Create a mock product
+        
         $product = Product::factory()->create(['name' => 'Gaming Mouse']);
 
-        // Act: Perform a GET request to the show endpoint
         $response = $this->get(route('product.show', ['id' => $product->getId()]));
 
-        // Assert: Verify the response status and view data
         $response->assertStatus(200);
         $response->assertViewHas('viewData.product', function (mixed $viewProduct) use ($product): bool {
-            return $viewProduct->getId() === $product->getId(); // Validate that the correct product is returned
+            return $viewProduct->getId() === $product->getId(); 
         });
     }
 }

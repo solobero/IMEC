@@ -12,11 +12,11 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(), // Random product name
-            'description' => $this->faker->sentence(), // Random description
-            'image' => $this->faker->imageUrl(), // Random image URL
-            'price' => $this->faker->randomFloat(2, 10, 1000), // Random price
-            'warranty' => $this->faker->numberBetween(1, 24), // Random warranty in months
+            'name' => $this->faker->word(), 
+            'description' => $this->faker->sentence(), 
+            'image' => $this->faker->imageUrl(), 
+            'price' => $this->faker->randomFloat(2, 10, 1000), 
+            'warranty' => $this->faker->numberBetween(1, 24),
         ];
     }
 }

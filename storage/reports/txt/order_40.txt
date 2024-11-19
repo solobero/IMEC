@@ -1,0 +1,4 @@
+Order ID: 40
+Date: 2024-11-19 16:24:53
+Total: $2000
+Product: PC Gamer | Price: $1000 | Quantity: 2

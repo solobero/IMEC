@@ -1,0 +1,5 @@
+Order ID: 39
+Date: 2024-11-19 16:10:17
+Total: $1400
+Product: Airpods | Price: $400 | Quantity: 1
+Product: PC Gamer | Price: $1000 | Quantity: 1
