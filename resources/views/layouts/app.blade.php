@@ -84,6 +84,13 @@
             </div>
         </div>
     </nav>
+    <!-- Exchange Rate Banner -->
+    @if(isset($exchangeRate) && $exchangeRate !== 'Unavailable')
+        <div class="bg-info text-white text-center py-1">
+            <small>{{ __('messages.exchangeRateMessage', ['rate' => $exchangeRate]) }}</small>
+        </div>
+    @endif
+
     <header class="masthead bg-primary text-white text-center py-2">
         <div class="container d-flex align-items-center flex-column">
             <h2>@yield('subtitle',__('messages.name'))</h2>

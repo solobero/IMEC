@@ -31,7 +31,7 @@ class ProductApiController extends Controller
 
     public function show(string $id): JsonResponse
     {
- 
+
         $product = Product::findOrFail($id);
 
         return response()->json([

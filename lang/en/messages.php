@@ -76,5 +76,6 @@ return [
     'sortBy' => 'Sort By',
     'alphabetical' => 'Alphabetical',
     'priceLowToHigh' => 'Price: Low to High',
+    'exchangeRateMessage' => 'Current Exchange Rate (EUR to COP): :rate COP',
 
 ];

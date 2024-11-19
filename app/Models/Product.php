@@ -23,7 +23,9 @@ class Product extends Model
      * RELATIONS
      * $this->itemsProduct - ItemProduct[] - contains the associated items
      */
-    
+    use HasFactory;
+
+
     public static function validate($request)
     {
         $request->validate([
