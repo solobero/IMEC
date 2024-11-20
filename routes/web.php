@@ -27,6 +27,9 @@ Route::middleware([SetLocale::class])->group(function () {
     Route::get('/cartService/delete', 'App\Http\Controllers\CartServiceController@delete')->name('cart.service.delete');
     Route::post('/cartService/add/{id}', 'App\Http\Controllers\CartServiceController@add')->name('cart.service.add');
 
+    Route::get('/order/{id}/report/txt', 'App\Http\Controllers\CartProductController@downloadTxtReport')->name('order.report.txt');
+    Route::get('/order/{id}/report/pdf', 'App\Http\Controllers\CartProductController@downloadPdfReport')->name('order.report.pdf');
+
     Route::middleware('auth')->group(function () {
         Route::get('/cartProduct/purchase', 'App\Http\Controllers\CartProductController@purchaseProduct')->name('cart.product.purchase');
         Route::get('/cartService/purchase', 'App\Http\Controllers\CartServiceController@purchaseService')->name('cart.service.purchase');
@@ -53,9 +56,6 @@ Route::middleware([SetLocale::class])->group(function () {
         Route::put('/admin/order/{id}/shipOrder', 'App\Http\Controllers\Admin\AdminOrderController@shipOrder')->name('admin.order.shipOrder');
         Route::put('/admin/order/{id}/shipService', 'App\Http\Controllers\Admin\AdminOrderController@shipService')->name('admin.order.shipService');
     });
-
-    Route::get('/order/{id}/report/txt', 'App\Http\Controllers\CartProductController@downloadTxtReport')->name('order.report.txt');
-    Route::get('/order/{id}/report/pdf', 'App\Http\Controllers\CartProductController@downloadPdfReport')->name('order.report.pdf');
 
     Auth::routes();
 });

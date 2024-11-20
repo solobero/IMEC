@@ -91,7 +91,7 @@
     <div class="copyright py-4 text-center text-white mt-auto">
         <div class="container">
             <small>
-                <strong>Check out the products in stock from our allied brands: 
+                <strong>{{__('messages.alliedBrands') }} 
                 <a href="http://34.95.217.80/public/api/products" class="text-white" target="_blank">
                     http://34.95.217.80/public/api/products<br>
                 </a></strong>
