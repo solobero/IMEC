@@ -31,7 +31,7 @@
             <img src="{{ asset('storage/default.jpeg') }}" class="img-fluid rounded-start" alt="default">
             @endif
             <div class="card-body text-center">
-                <a href="{{ route('product.show', ['id'=> $product->getId()]) }}" class="btn bg-custom text-white">
+                <a href="{{ route('product.show', ['id'=> $product->getId()]) }}" class="btn btn-custom bg-custom text-white">
                     {{ $product->getName() }}
                 </a>
                 <p class="mt-2">

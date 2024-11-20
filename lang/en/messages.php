@@ -89,4 +89,6 @@ return [
     'productName' => 'Product Name ',
     'price' => 'Price ',
     'checkOut' => 'Check out for IMEC best-selling products... ',
+    'spanish' => 'Español',
+    'english' => 'English',
 ];

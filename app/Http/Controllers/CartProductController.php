@@ -25,10 +25,14 @@ class CartProductController extends Controller
         $this->txtReportGenerator = $txtReportGenerator;
     }
 
-    public function index(Request $request): View
+    public function index(Request $request): View|RedirectResponse
     {
-
         $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
         $balance = $user->getBalance();
 
         $total = 0;
@@ -47,7 +51,7 @@ class CartProductController extends Controller
         ];
 
         return view('cart.product.index')->with('viewData', $viewData);
-    }
+}
 
     public function add(Request $request, int $id): RedirectResponse
     {
