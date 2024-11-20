@@ -1,4 +1,5 @@
 @extends('layouts.app') 
+@section('title', __('messages.ordersTitle')) 
 @section('subtitle', __('messages.ordersTitle'))  
 @section('content') 
 @forelse ($viewData["orderService"] as $orderService) 

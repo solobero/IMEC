@@ -1,0 +1,5 @@
+Order ID: 10
+Date: 2024-11-20 02:19:37
+Total: $400
+Product: Airpods | Price: $300 | Quantity: 1
+Product: Keyboard | Price: $100 | Quantity: 1

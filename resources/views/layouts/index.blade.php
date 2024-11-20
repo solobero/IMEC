@@ -84,7 +84,13 @@ l<!DOCTYPE html>
 
     <div class="copyright py-4 text-center text-white mt-auto">
         <div class="container">
-            <small>{{__('messages.copyright') }}</small>
+            <small>
+                <strong>Check out the products in stock from our allied brands: 
+                <a href="http://34.95.217.80/public/api/products" class="text-white" target="_blank">
+                    http://34.95.217.80/public/api/products<br>
+                </a></strong>
+                {{__('messages.copyright') }}
+            </small>
         </div>
     </div> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

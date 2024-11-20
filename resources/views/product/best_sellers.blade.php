@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', __('messages.bestSellingProducts'))
 @section('subtitle', __('messages.bestSellingProducts'))
 @section('content')
 <div class="row">

@@ -1,0 +1,4 @@
+Order ID: 12
+Date: 2024-11-20 02:24:01
+Total: $100
+Product: Keyboard | Price: $100 | Quantity: 1
