@@ -18,7 +18,7 @@
     </div>
 </div>
 <div class="text-center mb-4">
-    <b>Check out for IMEC's best-selling products...</b>
+    <b>{{ __('messages.checkOut')}}</b>
     <a href="{{ route('product.best_sellers') }}" class="best-sellers-link"><b>{{ __('messages.bestSelling') }}</b></a>
 </div>
 <div class="row">

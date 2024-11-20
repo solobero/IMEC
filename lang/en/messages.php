@@ -88,5 +88,5 @@ return [
     'productDetails' => 'Product Details ',
     'productName' => 'Product Name ',
     'price' => 'Price ',
-
+    'checkOut' => 'Check out for IMEC best-selling products... ',
 ];
