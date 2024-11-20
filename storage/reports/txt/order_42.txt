@@ -1,0 +1,4 @@
+Order ID: 42
+Date: 2024-11-20 02:10:40
+Total: $400
+Product: Airpods | Price: $400 | Quantity: 1

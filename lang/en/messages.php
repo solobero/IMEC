@@ -91,4 +91,5 @@ return [
     'checkOut' => 'Check out for IMEC best-selling products... ',
     'spanish' => 'Español',
     'english' => 'English',
+    'alliedBrands' => 'Check out the products in stock from our allied brands: ',
 ];

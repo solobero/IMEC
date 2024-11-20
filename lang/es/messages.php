@@ -87,4 +87,5 @@ return [
     'english' => 'English',
     'reportPDF' => 'Reporte en PDF',
     'reportTXT' => 'Reporte en TXT',
+    'alliedBrands' => 'Conoce los productos en stock de nuestras marcas aliadas:',
 ];
