@@ -3,9 +3,9 @@
 @section('content')
 <section>
     <img src="{{ asset('img/pc.jpg') }}">
-    <img src="{{ asset('img/pc.jpg') }}">
-    <img src="{{ asset('img/pc.jpg') }}">
-    <img src="{{ asset('img/pc.jpg') }}">
+    <img src="{{ asset('img/pc1.jpeg') }}">
+    <img src="{{ asset('img/pc2.jpeg') }}">
+    <img src="{{ asset('img/pc3.jpeg') }}">
     <div style="text-align: center;">
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 20px; font-weight: bold; padding: 10px; border-radius: 8px;">
             {{ __('messages.welcome') }} <br>
