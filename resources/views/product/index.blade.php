@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', __('messages.productsTitle'))
 @section('subtitle', __('messages.productsTitle'))
 @section('content')
 <div class="row mb-4">
@@ -10,7 +11,7 @@
                 <option value="alphabetical">{{ __('messages.alphabetical') }}</option>
                 <option value="price">{{ __('messages.priceLowToHigh') }}</option>
             </select>
-            <button class="btn btn-outline-success" type="submit">
+            <button class="btn btn-outline-success btn-custom" type="submit">
                 <i class="bi bi-search"></i> <b>{{ __('messages.search') }}</b>
             </button>
         </form>
@@ -22,7 +23,7 @@
 </div>
 <div class="row">
     @foreach ($viewData["products"] as $product)
-    <div class="col-md-4 col-lg-3 mb-2">
+    <div class="col-6 mb-4">
         <div class="card">
             @if($product->getImage())
             <img src="{{ asset('storage/' . $product->getImage()) }}" alt="{{ $product->getName() }}" class="card-img-top img-card">
@@ -30,7 +31,7 @@
             <img src="{{ asset('storage/default.jpeg') }}" class="img-fluid rounded-start" alt="default">
             @endif
             <div class="card-body text-center">
-                <a href="{{ route('product.show', ['id'=> $product->getId()]) }}" class="btn bg-primary text-white">
+                <a href="{{ route('product.show', ['id'=> $product->getId()]) }}" class="btn bg-custom text-white">
                     {{ $product->getName() }}
                 </a>
                 <p class="mt-2">

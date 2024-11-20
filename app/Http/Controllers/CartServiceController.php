@@ -39,7 +39,6 @@ class CartServiceController extends Controller
         return view('cart.service.index')->with('viewData', $viewData);
     }
 
-
     public function add(Request $request, int $id): RedirectResponse
     {
         $services = $request->session()->get('services', []);
@@ -60,7 +59,7 @@ class CartServiceController extends Controller
     {
         $servicesInSession = $request->session()->get('services');
 
-        if (!$servicesInSession) {
+        if (! $servicesInSession) {
             return redirect()->route('cart.service.index');
         }
 
@@ -77,14 +76,14 @@ class CartServiceController extends Controller
             return redirect()->route('cart.service.index')->with('error', 'Saldo insuficiente para completar la compra.');
         }
 
-        $orderService = new OrderService();
+        $orderService = new OrderService;
         $orderService->setUserId($user->getId());
         $orderService->setTotal($total);
         $orderService->save();
 
         foreach ($servicesInCart as $service) {
             $quantity = $servicesInSession[$service->getId()];
-            $itemService = new ItemService();
+            $itemService = new ItemService;
             $itemService->setQuantity($quantity);
             $itemService->setPrice($service->getPrice());
             $itemService->setServiceId($service->getId());

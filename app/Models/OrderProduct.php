@@ -21,7 +21,6 @@ class OrderProduct extends Model
      * $this->user - User - contains the associated User
      * $this->itemsProduct - ItemProduct[] - contains the associated product items
      */
-
     protected $table = 'product-orders';
 
     public static function validate($request)
@@ -99,7 +98,7 @@ class OrderProduct extends Model
 
     public function getItemsProduct()
     {
-        return $this->itemsProduct()->get(); 
+        return $this->itemsProduct()->get();
     }
 
     public function setItemsProduct($product_items): void

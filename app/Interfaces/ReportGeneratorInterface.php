@@ -4,5 +4,5 @@ namespace App\Interfaces;
 
 interface ReportGeneratorInterface
 {
-    public function generateReport($orderProduct): string; 
+    public function generateReport($orderProduct): string;
 }

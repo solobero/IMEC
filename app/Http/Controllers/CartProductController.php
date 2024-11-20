@@ -5,23 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\ItemProduct;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Utils\PDFReportGenerator;
+use App\Utils\TXTReportGenerator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use App\Interfaces\ReportGeneratorInterface;
-use App\Utils\PDFReportGenerator;
-use App\Utils\TXTReportGenerator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-
 
 class CartProductController extends Controller
 {
-
     protected PDFReportGenerator $pdfReportGenerator;
+
     protected TXTReportGenerator $txtReportGenerator;
 
-    
     public function __construct(PDFReportGenerator $pdfReportGenerator, TXTReportGenerator $txtReportGenerator)
     {
         $this->pdfReportGenerator = $pdfReportGenerator;
@@ -72,11 +69,11 @@ class CartProductController extends Controller
     {
         $orderProduct = OrderProduct::find($id);
         if ($orderProduct) {
-          $filePath = storage_path('reports/pdf/order_' . $id . '.pdf');
-          if (file_exists($filePath)) {
-            
-            return response()->download($filePath);
-           }
+            $filePath = storage_path('reports/pdf/order_'.$id.'.pdf');
+            if (file_exists($filePath)) {
+
+                return response()->download($filePath);
+            }
         }
 
         return redirect()->back()->with('error', __('messages.errorPDF'));
@@ -86,12 +83,12 @@ class CartProductController extends Controller
     {
         $orderProduct = OrderProduct::find($id);
         if ($orderProduct) {
-            $filePath = storage_path('reports/txt/order_' . $id . '.txt');
+            $filePath = storage_path('reports/txt/order_'.$id.'.txt');
             if (file_exists($filePath)) {
                 return response()->download($filePath);
             }
         }
-    
+
         return redirect()->back()->with('error', __('messages.errorTXT'));
     }
 
@@ -99,11 +96,11 @@ class CartProductController extends Controller
     {
         $productsInSession = $request->session()->get('products');
 
-        if (!$productsInSession) {
+        if (! $productsInSession) {
             return redirect()->route('cart.product.index');
         }
 
-        $user = Auth::user(); 
+        $user = Auth::user();
         $total = 0;
         $productsInCart = Product::findMany(array_keys($productsInSession));
 
@@ -118,14 +115,14 @@ class CartProductController extends Controller
         }
 
         $userId = $user->getId();
-        $orderProduct = new OrderProduct();
+        $orderProduct = new OrderProduct;
         $orderProduct->setUserId($userId);
         $orderProduct->setTotal($total);
         $orderProduct->save();
 
         foreach ($productsInCart as $product) {
             $quantity = $productsInSession[$product->getId()];
-            $itemProduct = new ItemProduct();
+            $itemProduct = new ItemProduct;
             $itemProduct->setQuantity($quantity);
             $itemProduct->setPrice($product->getPrice());
             $itemProduct->setProductId($product->getId());

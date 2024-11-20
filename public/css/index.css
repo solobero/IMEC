@@ -1,0 +1,98 @@
+section {
+    display: flex;
+    width: 100vw;
+    height: 100vh; 
+}
+
+section img {
+    width: 0px;
+    flex-grow: 1;
+    object-fit: cover;
+    opacity: .8;
+    transition: .5s ease;
+}
+
+section img:hover{
+    cursor: crosshair;
+    width: 300px;
+    opacity: 1;
+    filter: contrast(120%);
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0) !important;
+    padding: 0;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.navbar img {
+    height: 100%;
+    margin: 0;
+    vertical-align: middle;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+}
+
+.copyright {
+    background-color: #000000;
+}
+
+.best-sellers-link {
+    display: inline-block;
+    padding: 5px 20px;
+    background-color: #000000; 
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
+
+.img-card {
+    height: 18vw;
+    object-fit: cover;
+    opacity: 0.9;
+    transition: 0.5s ease;
+    background-color: #333333;
+    border-radius: 10px;
+}
+
+.card {
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    background-color: #e6e4e4;
+}
+
+.bg-custom {
+    background-color: #a857da;
+    
+}
+
+.btn-custom {
+    background-color: #a857da;
+    color: white;
+}
+
+.btn-custom:hover {
+    background-color: #deb5f8;
+    border-color: #ffffff;
+}

@@ -4,22 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="{{asset('/css/app.css')}}" rel="stylesheet" />
+    <link href="{{asset('/css/index.css')}}" rel="stylesheet" />
     <title>@yield('title',__('messages.name'))</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-2 custom-navbar">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
             <a class="navbar-brand" href="{{ route('home.index') }}">
-                <img src="{{ asset('img/logo.png') }}" alt="IMEC" width="80" height="50">
-                <b>{{__('messages.name') }}</b>
+                    <img src="{{ asset('img/logo.png') }}" alt="IMEC" width="80" height="50">
+                    <b>{{__('messages.name') }}</b>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
                     <a class="nav-link active" href="{{route('home.index')}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
                             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
@@ -80,25 +76,24 @@
                         @csrf
                     </form>
                     @endguest
-                </div>
+                </ul>
             </div>
-        </div>
     </nav>
+
+    <div class="container d-flex align-items-center flex-column" style="margin-top: 70px;"> <!-- margen superior personalizado -->
+        <h2>@yield('subtitle',__('messages.name'))</h2>
+    </div>
     
     @if(isset($exchangeRate) && $exchangeRate !== 'Unavailable')
-        <div class="bg-info text-white text-center py-1">
+        <div class="bg-custom text-white text-center py-1">
             <small>{{ __('messages.exchangeRateMessage', ['rate' => $exchangeRate]) }}</small>
         </div>
     @endif
 
-    <header class="masthead bg-primary text-white text-center py-2">
-        <div class="container d-flex align-items-center flex-column">
-            <h2>@yield('subtitle',__('messages.name'))</h2>
-        </div>
-    </header>
     <div class="container my-4">
         @yield('content')
     </div>
+    
     <div class="copyright py-4 text-center text-white mt-auto">
         <div class="container">
             <small>{{__('messages.copyright') }}</small>

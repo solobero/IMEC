@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\SearchInterface;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Interfaces\SearchInterface;
 
 class ServiceController extends Controller
 {
@@ -25,9 +25,7 @@ class ServiceController extends Controller
             $keyword = $request->input('search');
             $results = $this->searchService->searchByName($keyword);
             $viewData['services'] = $results['services'];
-        } 
-        
-        else {
+        } else {
             $viewData['services'] = $query->get();
         }
 
@@ -48,7 +46,7 @@ class ServiceController extends Controller
     {
         $viewData = [];
         $keyword = $request->input('search');
-        $query = Service::where('name', 'LIKE', '%' . $keyword . '%');
+        $query = Service::where('name', 'LIKE', '%'.$keyword.'%');
 
         if ($request->has('sort') && $request->input('sort') === 'alphabetical') {
             $query->orderBy('name', 'asc');

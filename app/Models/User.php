@@ -27,7 +27,6 @@ class User extends Authenticatable
      * $this->ordersProduct - OrderProduct[] - contains the associated orders
      * $this->ordersService - OrderService[] - contains the associated orders
      */
-
     protected $fillable = [
         'name',
         'email',
@@ -67,7 +66,6 @@ class User extends Authenticatable
         $this->attributes['email_verified_at'] = $emailVerifiedAt;
     }
      */
-
     public function getPassword(): string
     {
         return $this->attributes['password'];
@@ -90,7 +88,6 @@ class User extends Authenticatable
         $this->attributes['remember_token'] = $rememberToken;
     }
      */
-
     public function getRoleAttribute(): string
     {
         return $this->attributes['role'];

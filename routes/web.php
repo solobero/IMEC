@@ -3,7 +3,6 @@
 use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Dompdf\Dompdf;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home.index');
 
