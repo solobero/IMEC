@@ -1,5 +1,4 @@
 @extends('layouts.index')
-
 @section('title', __('messages.name'))
 @section('content')
 <section>

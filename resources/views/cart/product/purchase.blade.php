@@ -1,4 +1,5 @@
 @extends('layouts.app') 
+@section('title', __('messages.purchaseStatusTitle')) 
 @section('subtitle', __('messages.purchaseStatusTitle')) 
 @section('content') 
 <div class="card">
@@ -11,10 +12,10 @@
             <b>{{ $viewData["orderProduct"]->getId() }}</b>
         </div>
        
-        <a href="{{ route('order.report.pdf', ['id' => $viewData['orderProduct']->getId()]) }}" class="btn btn-secondary">
+        <a href="{{ route('order.report.pdf', ['id' => $viewData['orderProduct']->getId()]) }}" class="btn btn-custom btn-secondary">
            {{__('messages.reportPDF') }}
         </a>
-        <a href="{{ route('order.report.txt', ['id' => $viewData['orderProduct']->getId()]) }}" class="btn btn-secondary">
+        <a href="{{ route('order.report.txt', ['id' => $viewData['orderProduct']->getId()]) }}" class="btn btn-custom btn-secondary">
            {{__('messages.reportTXT') }}
         </a>
     </div>

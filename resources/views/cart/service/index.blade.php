@@ -24,11 +24,11 @@
                 @endforeach </tbody>
         </table>
         <div class="row">
-            <div class="text-end"> <a class="btn btn-outline-secondary mb-2"><b>{{__('messages.total') }}</b> ${{ $viewData["total"] }}</a>
+            <div class="text-end"> <a class="btn btn-custom btn-outline-secondary mb-2"><b>{{__('messages.total') }}</b> ${{ $viewData["total"] }}</a>
                 @if (count($viewData["services"]) > 0)
-                <a href="{{ route('cart.service.purchase') }}"  class="btn bg-primary text-white mb-2">{{__('messages.purchase') }}</a>
+                <a href="{{ route('cart.service.purchase') }}"  class="btn btn-custom bg-custom text-white mb-2">{{__('messages.purchase') }}</a>
                 <a href="{{ route('cart.service.delete') }}">
-                    <button class="btn btn-danger mb-2">
+                    <button class="btn btn-custom mb-2">
                         {{__('messages.emptyCart') }}
                     </button>
                 </a>

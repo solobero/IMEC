@@ -85,4 +85,6 @@ return [
     'checkOut' => '¡Conoce los productos más vendidos por IMEC!...',
     'spanish' => 'Español',
     'english' => 'English',
+    'reportPDF' => 'Reporte en PDF',
+    'reportTXT' => 'Reporte en TXT',
 ];

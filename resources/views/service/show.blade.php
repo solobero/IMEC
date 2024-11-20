@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', __('messages.servicesTitle'))
 @section('subtitle', __('messages.servicesTitle'))
 @section('content')
 <div class="card mb-3">
