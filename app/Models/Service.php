@@ -21,7 +21,6 @@ class Service extends Model
      * RELATIONS
      * $this->itemsService - ItemService[] - contains the associated items
      */
-    
     public static function validate($request)
     {
         $request->validate([
@@ -44,7 +43,7 @@ class Service extends Model
 
         return $total;
     }
-    
+
     public function getId(): int
     {
         return $this->attributes['id'];

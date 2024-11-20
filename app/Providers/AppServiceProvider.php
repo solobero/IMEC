@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
+use App\Interfaces\ReportGeneratorInterface;
+use App\Interfaces\SearchInterface;
+use App\Utils\PDFReportGenerator;
+use App\Utils\Search;
+use App\Utils\TXTReportGenerator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\SearchInterface;
-use App\Utils\Search;
-use App\Interfaces\ReportGeneratorInterface;
-use App\Utils\PDFReportGenerator;
-use App\Utils\TXTReportGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        
+
         Schema::defaultStringLength(191);
 
         $this->app->bind(SearchInterface::class, Search::class);
@@ -29,7 +29,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ReportGeneratorInterface::class, function ($app) {
             return $app->make(TxtReportGenerator::class);
         });
-
 
     }
 

@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Http\Resources\ProductResource;
 use Illuminate\Http\JsonResponse;
 
 class ProductApiController extends Controller
 {
-
     public function index(): JsonResponse
     {
 
@@ -22,7 +20,7 @@ class ProductApiController extends Controller
                 'description' => $product->getDescription(),
                 'price' => $product->getPrice(),
                 'warranty' => $product->getWarranty(),
-                'image_url' => url('storage/' . $product->getImage()), 
+                'image_url' => url('storage/'.$product->getImage()),
             ];
         });
 
@@ -40,7 +38,7 @@ class ProductApiController extends Controller
             'description' => $product->getDescription(),
             'price' => $product->getPrice(),
             'warranty' => $product->getWarranty(),
-            'image_url' => url('storage/' . $product->getImage()),  
+            'image_url' => url('storage/'.$product->getImage()),
         ], 200);
     }
 }

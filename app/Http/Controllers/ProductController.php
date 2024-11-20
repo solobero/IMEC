@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\SearchInterface;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Interfaces\SearchInterface;
 
 class ProductController extends Controller
 {
@@ -15,7 +15,7 @@ class ProductController extends Controller
     {
         $this->searchService = $searchService;
     }
-    
+
     public function index(Request $request): View
     {
         $viewData = [];
@@ -25,9 +25,7 @@ class ProductController extends Controller
             $keyword = $request->input('search');
             $results = $this->searchService->searchByName($keyword);
             $viewData['products'] = $results['products'];
-        } 
-        
-        else {
+        } else {
             $viewData['products'] = $query->get();
         }
 
@@ -57,7 +55,7 @@ class ProductController extends Controller
     {
         $viewData = [];
         $keyword = $request->input('search');
-        $query = Product::where('name', 'LIKE', '%' . $keyword . '%');
+        $query = Product::where('name', 'LIKE', '%'.$keyword.'%');
 
         if ($request->has('sort') && $request->input('sort') === 'alphabetical') {
             $query->orderBy('name', 'asc');

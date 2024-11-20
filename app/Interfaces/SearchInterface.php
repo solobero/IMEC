@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface SearchInterface {
-    
+interface SearchInterface
+{
     public function searchByName(string $keyword): array;
 }

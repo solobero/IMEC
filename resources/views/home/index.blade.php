@@ -1,15 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.index')
 
 @section('title', __('messages.name'))
 @section('content')
-<div class="text-center">
-    <div class="card text-bg-dark">
-        <img src="{{ asset('img/pc.jpg') }}" class="card-img w-100" alt="..." style="height: 530px; object-fit: cover;">
-        <div class="card-img-overlay">
-            <h5 class="card-title">{{__('messages.welcome') }}</h5>
-            <p class="card-text">{{__('messages.slogan') }}</p>
-
+<section>
+    <img src="{{ asset('img/pc.jpg') }}" alt="Botón Imagen" style="cursor: pointer;" onclick="alert('¡Hiciste clic en la imagen!')">
+    <img src="{{ asset('img/pc.jpg') }}">
+    <img src="{{ asset('img/pc.jpg') }}">
+    <img src="{{ asset('img/pc.jpg') }}">
+    <div style="text-align: center;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 20px; font-weight: bold; padding: 10px; border-radius: 8px;">
+            {{ __('messages.welcome') }} <br>
+            {{ __('messages.slogan') }}
         </div>
     </div>
-</div>
+</section>
 @endsection

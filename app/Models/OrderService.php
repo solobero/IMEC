@@ -21,7 +21,6 @@ class OrderService extends Model
      * $this->user - User - contains the associated User
      * $this->itemsService - ItemService[] - contains the associated items
      */
-    
     protected $table = 'service-orders';
 
     public static function validate($request)
@@ -99,7 +98,7 @@ class OrderService extends Model
 
     public function getItemsService()
     {
-        return $this->itemsService()->get(); 
+        return $this->itemsService()->get();
     }
 
     public function setItemsService($service_items): void

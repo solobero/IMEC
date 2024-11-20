@@ -20,7 +20,6 @@ class ItemProduct extends Model
      * $this->orderProduct - OrderProduct - contains the associated OrderProduct
      * $this->product - Product - contains the associated Product
      */
-    
     protected $table = 'product-items';
 
     public static function validate($request)

@@ -20,7 +20,6 @@ class ItemService extends Model
      * $this->orderService - OrderService - contains the associated OrderService
      * $this->service - Service - contains the associated Service
      */
-    
     protected $table = 'service-items';
 
     public static function validate($request)

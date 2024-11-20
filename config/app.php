@@ -99,7 +99,6 @@ return [
 
     'exchange_rates_api_key' => env('EXCHANGE_RATES_API_KEY', 'caf89c0340f14af6b72d0e9c1b71c42a'),
 
-
     'previous_keys' => [
         ...array_filter(
             explode(',', env('APP_PREVIOUS_KEYS', ''))
@@ -123,7 +122,7 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-    
+
     'providers' => [
         /*
          * Laravel Framework Service Providers...

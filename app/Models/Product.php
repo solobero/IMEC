@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-
     /**
      * PRODUCT ATTRIBUTES
      * $this->attributes['id'] - int - contains the product primary key (id)
@@ -24,7 +23,6 @@ class Product extends Model
      * $this->itemsProduct - ItemProduct[] - contains the associated items
      */
     use HasFactory;
-
 
     public static function validate($request)
     {
