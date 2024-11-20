@@ -69,6 +69,16 @@ class Service extends Model
         $this->attributes['description'] = $description;
     }
 
+    public function getCategory(): string
+    {
+        return $this->attributes['category'];
+    }
+
+    public function setCategory(string $category): void
+    {
+    $this->attributes['category'] = $category;
+    }
+
     public function getImage(): string
     {
         return $this->attributes['image'];
