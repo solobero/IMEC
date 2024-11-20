@@ -57,8 +57,5 @@ Route::middleware([SetLocale::class])->group(function () {
         Route::put('/admin/order/{id}/shipService', 'App\Http\Controllers\Admin\AdminOrderController@shipService')->name('admin.order.shipService');
     });
 
-    Route::get('/order/{id}/report/txt', 'App\Http\Controllers\CartProductController@downloadTxtReport')->name('order.report.txt');
-    Route::get('/order/{id}/report/pdf', 'App\Http\Controllers\CartProductController@downloadPdfReport')->name('order.report.pdf');
-
     Auth::routes();
 });
