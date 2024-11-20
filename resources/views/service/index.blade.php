@@ -28,7 +28,7 @@
             @endif
             <div class="card-body text-center">
                 <a href="{{ route('service.show', ['id'=> $service['id']]) }}"
-                    class="btn bg-custom text-white">{{ $service->getName() }}
+                    class="btn btn-custom bg-custom text-white">{{ $service->getName() }}
                 </a>
                 <p class="mt-2">
                     <strong>{{__('messages.editPrice') }} </strong>{{ $service->getPrice() }}$

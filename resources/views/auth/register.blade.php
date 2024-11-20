@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', __('messages.register'))
+@section('subtitle', __('messages.register'))
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -49,7 +51,7 @@
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn bg-primary text-white">
+                                <button type="submit" class="btn btn-custom bg-custom text-white">
                                     {{ __('Register') }}
                                 </button>
                             </div>

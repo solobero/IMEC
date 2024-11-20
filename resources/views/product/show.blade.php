@@ -28,7 +28,7 @@
                                 <div class="input-group-text">{{__('messages.quantity') }}</div> <input type="number" min="1" max="10" class="form-control quantity-input" name="quantity" value="1">
                             </div>
                         </div>
-                        <div class="col-auto"> <button class="btn bg-custom text-white" type="submit">{{__('messages.cartAdd') }}</button> </div>
+                        <div class="col-auto"> <button class="btn btn-custom bg-custom text-white" type="submit">{{__('messages.cartAdd') }}</button> </div>
                     </div>
                 </form>
                 </p>

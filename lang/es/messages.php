@@ -83,4 +83,6 @@ return [
     'productName' => 'Nombre del Producto ',
     'price' => 'Precio ',
     'checkOut' => '¡Conoce los productos más vendidos por IMEC!...',
+    'spanish' => 'Español',
+    'english' => 'English',
 ];

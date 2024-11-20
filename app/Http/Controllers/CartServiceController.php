@@ -12,14 +12,16 @@ use Illuminate\View\View;
 
 class CartServiceController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request): View|RedirectResponse
     {
 
         $user = Auth::user();
-        $balance = $user->getBalance();
 
-        // O si accedes directamente:
-        // $balance = $user->balance;
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
+        $balance = $user->getBalance();
 
         $total = 0;
         $servicesInCart = [];
